@@ -32,6 +32,112 @@
             min-height: 100vh;
         }
 
+        /* Login Page */
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .login-box {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 3rem;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .login-logo {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .login-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .login-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+
+        .error-message {
+            background: rgba(255, 0, 110, 0.1);
+            border: 1px solid var(--neon-pink);
+            color: var(--neon-pink);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            display: none;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
         /* Sidebar */
         .sidebar {
             position: fixed;
@@ -78,6 +184,7 @@
             border-radius: 12px;
             transition: all 0.3s;
             font-weight: 500;
+            cursor: pointer;
         }
 
         .nav-link:hover, .nav-link.active {
@@ -165,20 +272,6 @@
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
         }
 
-        .notification-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            width: 20px;
-            height: 20px;
-            background: var(--neon-pink);
-            border-radius: 50%;
-            font-size: 0.7rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
         .admin-profile {
             display: flex;
             align-items: center;
@@ -187,10 +280,6 @@
             padding: 0.5rem 1rem;
             border-radius: 50px;
             transition: all 0.3s;
-        }
-
-        .admin-profile:hover {
-            background: rgba(255, 255, 255, 0.05);
         }
 
         .admin-avatar {
@@ -210,6 +299,14 @@
             margin-top: 80px;
             padding: 2rem;
             min-height: calc(100vh - 80px);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
         }
 
         /* Stats Cards */
@@ -283,44 +380,7 @@
             color: var(--neon-green);
         }
 
-        /* Charts Section */
-        .charts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .chart-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 1.5rem;
-        }
-
-        .chart-header {
-            margin-bottom: 1.5rem;
-        }
-
-        .chart-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .chart-placeholder {
-            height: 250px;
-            background: rgba(0, 212, 255, 0.05);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            border: 1px dashed var(--border-color);
-        }
-
-        /* Movies Table */
+        /* Table */
         .table-card {
             background: var(--card-bg);
             backdrop-filter: blur(10px);
@@ -335,6 +395,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .table-title {
@@ -369,10 +431,6 @@
             background: rgba(255, 255, 255, 0.05);
             color: var(--text-primary);
             border: 1px solid var(--border-color);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
         }
 
         .movies-table {
@@ -466,59 +524,70 @@
             color: white;
         }
 
-        /* Progress Bar */
-        .progress-bar {
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-top: 0.5rem;
-        }
-
-        .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
-            border-radius: 10px;
-            transition: width 0.3s;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
         }
 
-        /* Quick Actions */
-        .quick-actions {
+        .modal.active {
             display: flex;
-            gap: 1rem;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 2rem;
-            flex-wrap: wrap;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .close-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: rgba(255, 0, 110, 0.1);
+            border: none;
+            color: var(--neon-pink);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .close-btn:hover {
+            background: var(--neon-pink);
+            color: white;
         }
 
         /* Responsive */
-        @media (max-width: 1024px) {
-            .sidebar {
-                width: 80px;
-            }
-
-            .sidebar .nav-text {
-                display: none;
-            }
-
-            .logo {
-                justify-content: center;
-                font-size: 1.5rem;
-            }
-
-            .topbar {
-                left: 80px;
-            }
-
-            .main-content {
-                margin-left: 80px;
-            }
-
-            .charts-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -532,402 +601,426 @@
                 margin-left: 0;
             }
 
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
             .search-bar {
-                max-width: 200px;
+                max-width: 150px;
             }
-
-            .admin-profile span {
-                display: none;
-            }
-        }
-
-        /* Animations */
-        @keyframes glow {
-            0%, 100% {
-                box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
-            }
-            50% {
-                box-shadow: 0 0 40px rgba(0, 212, 255, 0.6);
-            }
-        }
-
-        .glow-effect {
-            animation: glow 2s infinite;
-        }
-
-        /* Web Series Section */
-        .section-divider {
-            margin: 3rem 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
         }
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <div class="logo">🎬 <span>CineHub</span></div>
-        <ul class="nav-menu">
-            <li class="nav-item">
-                <a href="#" class="nav-link active">
-                    <span class="nav-icon">📊</span>
-                    <span class="nav-text">Dashboard</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#movies" class="nav-link">
-                    <span class="nav-icon">🎬</span>
-                    <span class="nav-text">Movies</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#webseries" class="nav-link">
-                    <span class="nav-icon">📺</span>
-                    <span class="nav-text">Web Series</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span class="nav-icon">📁</span>
-                    <span class="nav-text">Categories</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span class="nav-icon">⭐</span>
-                    <span class="nav-text">Actors</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span class="nav-icon">⬆️</span>
-                    <span class="nav-text">Upload Movie</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span class="nav-icon">👥</span>
-                    <span class="nav-text">Users</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span class="nav-icon">💳</span>
-                    <span class="nav-text">Subscription</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span class="nav-icon">📢</span>
-                    <span class="nav-text">Ads Manager</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span class="nav-icon">📈</span>
-                    <span class="nav-text">Analytics</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <span class="nav-icon">⚙️</span>
-                    <span class="nav-text">Settings</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link" onclick="logout()">
-                    <span class="nav-icon">🚪</span>
-                    <span class="nav-text">Logout</span>
-                </a>
-            </li>
-        </ul>
-    </aside>
-
-    <!-- Top Bar -->
-    <header class="topbar">
-        <div class="search-bar">
-            <span class="search-icon">🔍</span>
-            <input type="text" placeholder="Search movies, users, analytics...">
+    <!-- Login Page -->
+    <div id="loginPage" class="login-container">
+        <div class="login-box">
+            <div class="login-logo">🎬</div>
+            <h1 class="login-title">Admin Login</h1>
+            <p class="login-subtitle">CineHub Dashboard</p>
+            <div id="errorMessage" class="error-message">Invalid username or password!</div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="username" required placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" required placeholder="Enter password">
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
         </div>
-        <div class="topbar-actions">
-            <div class="icon-btn">
-                <span>🔔</span>
-                <span class="notification-badge">5</span>
-            </div>
-            <div class="icon-btn" onclick="toggleTheme()">
-                <span id="themeIcon">🌙</span>
-            </div>
-            <div class="admin-profile">
-                <div class="admin-avatar">👤</div>
-                <span>Admin</span>
-            </div>
-        </div>
-    </header>
+    </div>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Stats Cards -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div>
-                        <div class="stat-title">Total Movies</div>
-                        <div class="stat-value" id="totalMovies">32</div>
-                        <div class="stat-change">↑ 12% from last month</div>
+    <!-- Dashboard -->
+    <div id="dashboardPage" class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">🎬 CineHub</div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <div class="nav-link active" onclick="showSection('dashboard')">
+                        <span class="nav-icon">📊</span>
+                        <span class="nav-text">Dashboard</span>
                     </div>
-                    <div class="stat-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--neon-blue);">🎬</div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" onclick="showSection('movies')">
+                        <span class="nav-icon">🎬</span>
+                        <span class="nav-text">Movies</span>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" onclick="showSection('webseries')">
+                        <span class="nav-icon">📺</span>
+                        <span class="nav-text">Web Series</span>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" onclick="showSection('upload')">
+                        <span class="nav-icon">⬆️</span>
+                        <span class="nav-text">Upload Movie</span>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" onclick="logout()">
+                        <span class="nav-icon">🚪</span>
+                        <span class="nav-text">Logout</span>
+                    </div>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Top Bar -->
+        <header class="topbar">
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="topbar-actions">
+                <div class="admin-profile">
+                    <div class="admin-avatar">👤</div>
+                    <span>Admin</span>
                 </div>
             </div>
+        </header>
 
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div>
-                        <div class="stat-title">Total Users</div>
-                        <div class="stat-value">45.2K</div>
-                        <div class="stat-change">↑ 8% from last month</div>
-                    </div>
-                    <div class="stat-icon" style="background: rgba(181, 55, 242, 0.1); color: var(--neon-purple);">👥</div>
-                </div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div>
-                        <div class="stat-title">Daily Active Users</div>
-                        <div class="stat-value">12.8K</div>
-                        <div class="stat-change">↑ 15% from yesterday</div>
-                    </div>
-                    <div class="stat-icon" style="background: rgba(0, 255, 136, 0.1); color: var(--neon-green);">📊</div>
-                </div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div>
-                        <div class="stat-title">Monthly Revenue</div>
-                        <div class="stat-value">$89.5K</div>
-                        <div class="stat-change">↑ 23% from last month</div>
-                    </div>
-                    <div class="stat-icon" style="background: rgba(255, 0, 110, 0.1); color: var(--neon-pink);">💰</div>
-                </div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div>
-                        <div class="stat-title">Total Downloads</div>
-                        <div class="stat-value">156K</div>
-                        <div class="stat-change">↑ 18% from last month</div>
-                    </div>
-                    <div class="stat-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--neon-blue);">⬇️</div>
-                </div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div>
-                        <div class="stat-title">Storage Used</div>
-                        <div class="stat-value">2.4TB</div>
-                        <div class="stat-change">of 5TB total</div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 48%;"></div>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <div id="dashboardSection" class="content-section active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Total Movies</div>
+                                <div class="stat-value" id="totalMovies">0</div>
+                                <div class="stat-change">↑ Updated</div>
+                            </div>
+                            <div class="stat-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--neon-blue);">🎬</div>
                         </div>
                     </div>
-                    <div class="stat-icon" style="background: rgba(181, 55, 242, 0.1); color: var(--neon-purple);">💾</div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Total Web Series</div>
+                                <div class="stat-value" id="totalSeries">0</div>
+                                <div class="stat-change">↑ Updated</div>
+                            </div>
+                            <div class="stat-icon" style="background: rgba(181, 55, 242, 0.1); color: var(--neon-purple);">📺</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Published</div>
+                                <div class="stat-value" id="publishedCount">0</div>
+                                <div class="stat-change">Live Content</div>
+                            </div>
+                            <div class="stat-icon" style="background: rgba(0, 255, 136, 0.1); color: var(--neon-green);">✅</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Charts -->
-        <div class="charts-grid">
-            <div class="chart-card">
-                <div class="chart-header">
-                    <div class="chart-title">Daily Movie Views</div>
+            <!-- Movies Section -->
+            <div id="moviesSection" class="content-section">
+                <div class="table-card">
+                    <div class="table-header">
+                        <div class="table-title">🎬 Movies Management</div>
+                        <button class="btn btn-primary" onclick="openAddMovieModal()">➕ Add New Movie</button>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="movies-table">
+                            <thead>
+                                <tr>
+                                    <th>Thumbnail</th>
+                                    <th>Movie Name</th>
+                                    <th>Genre</th>
+                                    <th>Year</th>
+                                    <th>Rating</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="moviesTableBody"></tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="chart-placeholder">📈 Line Chart: Daily Views Trend</div>
             </div>
 
-            <div class="chart-card">
-                <div class="chart-header">
-                    <div class="chart-title">Category Performance</div>
+            <!-- Web Series Section -->
+            <div id="webseriesSection" class="content-section">
+                <div class="table-card">
+                    <div class="table-header">
+                        <div class="table-title">📺 Web Series Management</div>
+                        <button class="btn btn-primary" onclick="openAddSeriesModal()">➕ Add New Series</button>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="movies-table">
+                            <thead>
+                                <tr>
+                                    <th>Thumbnail</th>
+                                    <th>Series Name</th>
+                                    <th>Genre</th>
+                                    <th>Seasons</th>
+                                    <th>Rating</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="seriesTableBody"></tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="chart-placeholder">📊 Bar Chart: Genre-wise Performance</div>
             </div>
 
-            <div class="chart-card">
-                <div class="chart-header">
-                    <div class="chart-title">User Subscription Types</div>
+            <!-- Upload Section -->
+            <div id="uploadSection" class="content-section">
+                <div class="table-card">
+                    <div class="table-header">
+                        <div class="table-title">⬆️ Upload New Content</div>
+                    </div>
+                    <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                        <button class="btn btn-primary" onclick="openAddMovieModal()" style="flex: 1; min-width: 200px; padding: 2rem;">
+                            🎬 Upload Movie
+                        </button>
+                        <button class="btn btn-primary" onclick="openAddSeriesModal()" style="flex: 1; min-width: 200px; padding: 2rem;">
+                            📺 Upload Web Series
+                        </button>
+                    </div>
                 </div>
-                <div class="chart-placeholder">🥧 Pie Chart: Free / Premium / VIP</div>
             </div>
-        </div>
+        </main>
+    </div>
 
-        <!-- Quick Actions -->
-        <div class="quick-actions">
-            <button class="btn btn-primary glow-effect" onclick="addNewMovie()">
-                ➕ Add New Movie
-            </button>
-            <button class="btn btn-secondary">
-                📤 Bulk Upload
-            </button>
-            <button class="btn btn-secondary">
-                📊 Export Data
-            </button>
-            <button class="btn btn-secondary">
-                🔄 Sync Database
-            </button>
+    <!-- Add/Edit Movie Modal -->
+    <div id="movieModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="movieModalTitle">Add New Movie</h2>
+                <button class="close-btn" onclick="closeMovieModal()">✕</button>
+            </div>
+            <form id="movieForm" onsubmit="saveMovie(event)">
+                <input type="hidden" id="movieIndex">
+                <div class="form-group">
+                    <label>Movie Title *</label>
+                    <input type="text" id="movieTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>Genre *</label>
+                    <input type="text" id="movieGenre" required placeholder="e.g., Action, Drama">
+                </div>
+                <div class="form-group">
+                    <label>Image URL *</label>
+                    <input type="url" id="movieImage" required placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <label>Release Year *</label>
+                    <input type="number" id="movieYear" required min="1900" max="2030">
+                </div>
+                <div class="form-group">
+                    <label>Rating *</label>
+                    <input type="number" id="movieRating" required step="0.1" min="0" max="10">
+                </div>
+                <div class="form-group">
+                    <label>Status *</label>
+                    <select id="movieStatus" style="width: 100%; padding: 1rem; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-primary); font-size: 1rem;">
+                        <option value="published">Published</option>
+                        <option value="draft">Draft</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Save Movie</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeMovieModal()">Cancel</button>
+                </div>
+            </form>
         </div>
+    </div>
 
-        <!-- Movies Table -->
-        <div class="table-card" id="movies">
-            <div class="table-header">
-                <div class="table-title">🎬 Popular OTT Movies</div>
-                <button class="btn btn-secondary">Filter</button>
+    <!-- Add/Edit Series Modal -->
+    <div id="seriesModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="seriesModalTitle">Add New Series</h2>
+                <button class="close-btn" onclick="closeSeriesModal()">✕</button>
             </div>
-            <div style="overflow-x: auto;">
-                <table class="movies-table">
-                    <thead>
-                        <tr>
-                            <th>Thumbnail</th>
-                            <th>Movie Name</th>
-                            <th>Genre</th>
-                            <th>Release Year</th>
-                            <th>Rating</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="moviesTableBody">
-                        <!-- Movies will be populated by JavaScript -->
-                    </tbody>
-                </table>
-            </div>
+            <form id="seriesForm" onsubmit="saveSeries(event)">
+                <input type="hidden" id="seriesIndex">
+                <div class="form-group">
+                    <label>Series Title *</label>
+                    <input type="text" id="seriesTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>Genre *</label>
+                    <input type="text" id="seriesGenre" required>
+                </div>
+                <div class="form-group">
+                    <label>Image URL *</label>
+                    <input type="url" id="seriesImage" required>
+                </div>
+                <div class="form-group">
+                    <label>Seasons *</label>
+                    <input type="number" id="seriesSeasons" required min="1">
+                </div>
+                <div class="form-group">
+                    <label>Rating *</label>
+                    <input type="number" id="seriesRating" required step="0.1" min="0" max="10">
+                </div>
+                <div class="form-group">
+                    <label>Status *</label>
+                    <select id="seriesStatus" style="width: 100%; padding: 1rem; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-primary); font-size: 1rem;">
+                        <option value="published">Published</option>
+                        <option value="draft">Draft</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Save Series</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeSeriesModal()">Cancel</button>
+                </div>
+            </form>
         </div>
-
-        <div class="section-divider"></div>
-
-        <!-- Web Series Table -->
-        <div class="table-card" id="webseries">
-            <div class="table-header">
-                <div class="table-title">📺 Popular Web Series</div>
-                <button class="btn btn-secondary">Filter</button>
-            </div>
-            <div style="overflow-x: auto;">
-                <table class="movies-table">
-                    <thead>
-                        <tr>
-                            <th>Thumbnail</th>
-                            <th>Series Name</th>
-                            <th>Genre</th>
-                            <th>Seasons</th>
-                            <th>Rating</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="webSeriesTableBody">
-                        <!-- Web series will be populated by JavaScript -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </main>
+    </div>
 
     <script>
-        // Movies Data
-        const popularOttMoviesData = [
-            { title: "RRR", genre: "Action, Drama", imgSrc: "https://iili.io/F2ziUOJ.jpg", originalLink: "WatchRRR.html", altText: "Poster of RRR movie", year: "2022", rating: "8.8" },
-            { title: "Kalki 2898 AD", genre: "Action, Drama", imgSrc: "https://iili.io/KXXLZ7V.jpg", originalLink: "kalkidetails.html", altText: "Poster of Kalki movie", year: "2024", rating: "8.5" },
-            { title: "Tiger Nageswara Rao", genre: "Dark Comedy", imgSrc: "https://iili.io/K8M02ef.jpg", originalLink: "Tigerdetails.html", altText: "Poster of Tiger movie", year: "2023", rating: "7.8" },
-            { title: "Ek Deewane Ki Deewaniyat", genre: "Romance", imgSrc: "https://iili.io/K6lu9ea.jpg", originalLink: "Deewaniyat.html", altText: "Poster of Argun reddy", year: "2024", rating: "7.5" },
-            { title: "Choked", genre: "Drama", imgSrc: "https://iili.io/K8MXjAF.jpg", originalLink: "Chokeddetails.html", altText: "Poster of Choked movie", year: "2020", rating: "7.2" },
-            { title: "Shershaah", genre: "Biographical War", imgSrc: "https://iili.io/F2zi8Hg.jpg", originalLink: "Shershaah.html", altText: "Poster of Shershaah movie", year: "2021", rating: "8.9" },
-            { title: "Drishyam 2", genre: "Thriller", imgSrc: "https://iili.io/F2zikUF.jpg", originalLink: "Drishyam.html", altText: "Poster of Drishyam 2 movie", year: "2022", rating: "8.6" },
-            { title: "Jai Bhim", genre: "Legal Drama", imgSrc: "https://iili.io/F2zigDv.jpg", originalLink: "jaibhim.html", altText: "Poster of Jai Bhim movie", year: "2021", rating: "9.2" },
-            { title: "Freddy", genre: "Thriller", imgSrc: "https://iili.io/F2z1RHJ.jpg", originalLink: "freddy.html", altText: "Poster of Freddy movie", year: "2022", rating: "7.4" },
-            { title: "Brahmāstra: Part One – Shiva", genre: "Fantasy Adventure", imgSrc: "https://iili.io/F2zi6Vp.jpg", originalLink: "brahmastra.html", altText: "Poster of Brahmāstra movie", year: "2022", rating: "7.9" },
-            { title: "Tanhaji: The Unsung Warrior", genre: "Historical Action", imgSrc: "https://iili.io/F2ziPiN.jpg", originalLink: "Tanhaji.html", altText: "Poster of Tanhaji movie", year: "2020", rating: "8.4" },
-            { title: "Sita Ramam", genre: "Romantic Drama", imgSrc: "https://iili.io/F2zisfI.jpg", originalLink: "SitaRamam.html", altText: "Poster of Sita Ramam movie", year: "2022", rating: "8.7" },
-            { title: "Sirf Ek Bandaa Kaafi Hai", genre: "Courtroom Drama", imgSrc: "https://iili.io/F2ziLlt.jpg", originalLink: "bandaa.html", altText: "Poster of Sirf Ek Bandaa Kaafi Hai movie", year: "2023", rating: "8.3" },
-            { title: "12th Fail", genre: "Biographical Drama", imgSrc: "https://iili.io/F2ziQUX.jpg", originalLink: "12thFail.html", altText: "Poster of 12th Fail movie", year: "2023", rating: "9.1" },
-            { title: "Housefull 5", genre: "Upcoming Drama", imgSrc: "https://iili.io/F2I2FNp.jpg", originalLink: "housefull5.html", altText: "Poster of Housefull 5 movie", year: "2024", rating: "N/A" },
-            { title: "Titanic", genre: "Disaster, Tragic Romance", imgSrc: "https://iili.io/F2InRMQ.jpg", originalLink: "titanic.html", altText: "Poster of Titanic movie", year: "1997", rating: "7.9" },
-            { title: "OMG", genre: "Comedy, Drama", imgSrc: "https://iili.io/F2I1CLN.jpg", originalLink: "omg.html", altText: "Poster of OMG movie", year: "2012", rating: "8.1" }
+        // Authentication
+        const ADMIN_USERNAME = 'hubbymovies007';
+        const ADMIN_PASSWORD = 'hubby555';
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                localStorage.setItem('adminLoggedIn', 'true');
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('dashboardPage').classList.add('active');
+                loadData();
+            } else {
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('adminLoggedIn');
+                location.reload();
+            }
+        }
+
+        // Check if already logged in
+        window.onload = function() {
+            if (localStorage.getItem('adminLoggedIn') === 'true') {
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('dashboardPage').classList.add('active');
+                loadData();
+            }
+        };
+
+        // Initial Data
+        let moviesData = [
+            { title: "RRR", genre: "Action, Drama", imgSrc: "https://iili.io/F2ziUOJ.jpg", year: "2022", rating: "8.8", status: "published" },
+            { title: "Kalki 2898 AD", genre: "Action, Drama", imgSrc: "https://iili.io/KXXLZ7V.jpg", year: "2024", rating: "8.5", status: "published" },
+            { title: "Tiger Nageswara Rao", genre: "Dark Comedy", imgSrc: "https://iili.io/K8M02ef.jpg", year: "2023", rating: "7.8", status: "published" },
+            { title: "Ek Deewane Ki Deewaniyat", genre: "Romance", imgSrc: "https://iili.io/K6lu9ea.jpg", year: "2024", rating: "7.5", status: "published" },
+            { title: "Choked", genre: "Drama", imgSrc: "https://iili.io/K8MXjAF.jpg", year: "2020", rating: "7.2", status: "published" },
+            { title: "Shershaah", genre: "Biographical War", imgSrc: "https://iili.io/F2zi8Hg.jpg", year: "2021", rating: "8.9", status: "published" },
+            { title: "Drishyam 2", genre: "Thriller", imgSrc: "https://iili.io/F2zikUF.jpg", year: "2022", rating: "8.6", status: "published" },
+            { title: "Jai Bhim", genre: "Legal Drama", imgSrc: "https://iili.io/F2zigDv.jpg", year: "2021", rating: "9.2", status: "published" },
+            { title: "Freddy", genre: "Thriller", imgSrc: "https://iili.io/F2z1RHJ.jpg", year: "2022", rating: "7.4", status: "published" },
+            { title: "Brahmāstra: Part One – Shiva", genre: "Fantasy Adventure", imgSrc: "https://iili.io/F2zi6Vp.jpg", year: "2022", rating: "7.9", status: "published" },
+            { title: "Tanhaji: The Unsung Warrior", genre: "Historical Action", imgSrc: "https://iili.io/F2ziPiN.jpg", year: "2020", rating: "8.4", status: "published" },
+            { title: "Sita Ramam", genre: "Romantic Drama", imgSrc: "https://iili.io/F2zisfI.jpg", year: "2022", rating: "8.7", status: "published" },
+            { title: "Sirf Ek Bandaa Kaafi Hai", genre: "Courtroom Drama", imgSrc: "https://iili.io/F2ziLlt.jpg", year: "2023", rating: "8.3", status: "published" },
+            { title: "12th Fail", genre: "Biographical Drama", imgSrc: "https://iili.io/F2ziQUX.jpg", year: "2023", rating: "9.1", status: "published" },
+            { title: "Housefull 5", genre: "Upcoming Drama", imgSrc: "https://iili.io/F2I2FNp.jpg", year: "2024", rating: "N/A", status: "draft" },
+            { title: "Titanic", genre: "Disaster, Tragic Romance", imgSrc: "https://iili.io/F2InRMQ.jpg", year: "1997", rating: "7.9", status: "published" },
+            { title: "OMG", genre: "Comedy, Drama", imgSrc: "https://iili.io/F2I1CLN.jpg", year: "2012", rating: "8.1", status: "published" }
         ];
 
-        // Web Series Data
-        const popularWebSeriesData = [
-            { title: "Mirzapur", genre: "Crime Thriller", imgSrc: "https://iili.io/F27Hhgt.jpg", originalLink: "mirzapur.html", seasons: "3", rating: "8.5" },
-            { title: "The Family Man", genre: "Spy Thriller", imgSrc: "https://iili.io/F27HyrP.jpg", originalLink: "familyman.html", seasons: "2", rating: "8.7" },
-            { title: "Asur 2", genre: "Crime Thriller", imgSrc: "https://iili.io/F27HOes.jpg", originalLink: "Asur2.html", seasons: "2", rating: "8.4" },
-            { title: "Sacred Games", genre: "Crime Thriller", imgSrc: "https://iili.io/F27HN7n.jpg", originalLink: "sacredgames.html", seasons: "2", rating: "8.6" },
-            { title: "Paatal Lok", genre: "Crime Thriller", imgSrc: "https://iili.io/F27HSLl.jpg", originalLink: "paatallok.html", seasons: "1", rating: "8.1" },
-            { title: "Farzi", genre: "Crime Thriller", imgSrc: "https://iili.io/F39aGXj.jpg", originalLink: "farzi.html", seasons: "1", rating: "8.3" },
-            { title: "Scam 1992", genre: "Biographical Crime", imgSrc: "https://iili.io/F27Hr1S.jpg", originalLink: "scam1992.html", seasons: "1", rating: "9.5" },
-            { title: "Panchayat", genre: "Comedy Drama", imgSrc: "https://iili.io/F27HgB2.jpg", originalLink: "panchayat.html", seasons: "3", rating: "8.9" },
-            { title: "Rocket Boys", genre: "Biographical Drama", imgSrc: "https://iili.io/F27H4r7.jpg", originalLink: "rocketboys.html", seasons: "2", rating: "8.8" },
-            { title: "Made in Heaven", genre: "Drama", imgSrc: "https://iili.io/F27Hsku.jpg", originalLink: "madeinheaven.html", seasons: "2", rating: "8.3" },
-            { title: "Delhi Crime", genre: "Crime Drama", imgSrc: "https://iili.io/F27HLmb.jpg", originalLink: "delhicrime.html", seasons: "2", rating: "8.5" },
-            { title: "Criminal Justice", genre: "Legal Drama", imgSrc: "https://iili.io/F27HZIj.jpg", originalLink: "criminaljustice.html", seasons: "3", rating: "8.1" },
-            { title: "Breathe", genre: "Crime Thriller", imgSrc: "https://iili.io/F27Hthx.jpg", originalLink: "breathe.html", seasons: "2", rating: "8.0" },
-            { title: "Special OPS", genre: "Spy Thriller", imgSrc: "https://iili.io/F2YqPjt.jpg", originalLink: "specialops.html", seasons: "1", rating: "8.2" },
-            { title: "SHE", genre: "Crime drama", imgSrc: "https://iili.io/F2YfN1f.jpg", originalLink: "she.html", seasons: "2", rating: "7.8" }
+        let seriesData = [
+            { title: "Mirzapur", genre: "Crime Thriller", imgSrc: "https://iili.io/F27Hhgt.jpg", seasons: "3", rating: "8.5", status: "published" },
+            { title: "The Family Man", genre: "Spy Thriller", imgSrc: "https://iili.io/F27HyrP.jpg", seasons: "2", rating: "8.7", status: "published" },
+            { title: "Asur 2", genre: "Crime Thriller", imgSrc: "https://iili.io/F27HOes.jpg", seasons: "2", rating: "8.4", status: "published" },
+            { title: "Sacred Games", genre: "Crime Thriller", imgSrc: "https://iili.io/F27HN7n.jpg", seasons: "2", rating: "8.6", status: "published" },
+            { title: "Paatal Lok", genre: "Crime Thriller", imgSrc: "https://iili.io/F27HSLl.jpg", seasons: "1", rating: "8.1", status: "published" },
+            { title: "Farzi", genre: "Crime Thriller", imgSrc: "https://iili.io/F39aGXj.jpg", seasons: "1", rating: "8.3", status: "published" },
+            { title: "Scam 1992", genre: "Biographical Crime", imgSrc: "https://iili.io/F27Hr1S.jpg", seasons: "1", rating: "9.5", status: "published" },
+            { title: "Panchayat", genre: "Comedy Drama", imgSrc: "https://iili.io/F27HgB2.jpg", seasons: "3", rating: "8.9", status: "published" },
+            { title: "Rocket Boys", genre: "Biographical Drama", imgSrc: "https://iili.io/F27H4r7.jpg", seasons: "2", rating: "8.8", status: "published" },
+            { title: "Made in Heaven", genre: "Drama", imgSrc: "https://iili.io/F27Hsku.jpg", seasons: "2", rating: "8.3", status: "published" },
+            { title: "Delhi Crime", genre: "Crime Drama", imgSrc: "https://iili.io/F27HLmb.jpg", seasons: "2", rating: "8.5", status: "published" },
+            { title: "Criminal Justice", genre: "Legal Drama", imgSrc: "https://iili.io/F27HZIj.jpg", seasons: "3", rating: "8.1", status: "published" },
+            { title: "Breathe", genre: "Crime Thriller", imgSrc: "https://iili.io/F27Hthx.jpg", seasons: "2", rating: "8.0", status: "published" },
+            { title: "Special OPS", genre: "Spy Thriller", imgSrc: "https://iili.io/F2YqPjt.jpg", seasons: "1", rating: "8.2", status: "published" },
+            { title: "SHE", genre: "Crime drama", imgSrc: "https://iili.io/F2YfN1f.jpg", seasons: "2", rating: "7.8", status: "published" }
         ];
 
-        // Populate Movies Table
-        function populateMoviesTable() {
+        // Load from localStorage if exists
+        function loadData() {
+            const savedMovies = localStorage.getItem('moviesData');
+            const savedSeries = localStorage.getItem('seriesData');
+            
+            if (savedMovies) moviesData = JSON.parse(savedMovies);
+            if (savedSeries) seriesData = JSON.parse(savedSeries);
+            
+            renderMoviesTable();
+            renderSeriesTable();
+            updateStats();
+        }
+
+        function saveData() {
+            localStorage.setItem('moviesData', JSON.stringify(moviesData));
+            localStorage.setItem('seriesData', JSON.stringify(seriesData));
+        }
+
+        function updateStats() {
+            document.getElementById('totalMovies').textContent = moviesData.length;
+            document.getElementById('totalSeries').textContent = seriesData.length;
+            const published = moviesData.filter(m => m.status === 'published').length + 
+                            seriesData.filter(s => s.status === 'published').length;
+            document.getElementById('publishedCount').textContent = published;
+        }
+
+        function renderMoviesTable() {
             const tbody = document.getElementById('moviesTableBody');
             tbody.innerHTML = '';
             
-            popularOttMoviesData.forEach((movie, index) => {
+            moviesData.forEach((movie, index) => {
                 const row = document.createElement('tr');
-                const status = index % 3 === 0 ? 'draft' : 'published';
-                
                 row.innerHTML = `
-                    <td><img src="${movie.imgSrc}" alt="${movie.altText}" class="movie-thumb"></td>
+                    <td><img src="${movie.imgSrc}" class="movie-thumb" onerror="this.src='https://via.placeholder.com/60x90?text=No+Image'"></td>
                     <td><strong>${movie.title}</strong></td>
                     <td>${movie.genre}</td>
                     <td>${movie.year}</td>
                     <td>⭐ ${movie.rating}</td>
-                    <td><span class="status-badge status-${status}">${status === 'published' ? 'Published' : 'Draft'}</span></td>
+                    <td><span class="status-badge status-${movie.status}">${movie.status === 'published' ? 'Published' : 'Draft'}</span></td>
                     <td>
                         <div class="action-btns">
-                            <button class="btn-icon btn-edit" onclick="editMovie('${movie.title}')">✏️</button>
-                            <button class="btn-icon btn-delete" onclick="deleteMovie('${movie.title}')">🗑️</button>
+                            <button class="btn-icon btn-edit" onclick="editMovie(${index})">✏️</button>
+                            <button class="btn-icon btn-delete" onclick="deleteMovie(${index})">🗑️</button>
                         </div>
                     </td>
                 `;
                 tbody.appendChild(row);
             });
-
-            // Update total movies count
-            document.getElementById('totalMovies').textContent = popularOttMoviesData.length;
         }
 
-        // Populate Web Series Table
-        function populateWebSeriesTable() {
-            const tbody = document.getElementById('webSeriesTableBody');
+        function renderSeriesTable() {
+            const tbody = document.getElementById('seriesTableBody');
             tbody.innerHTML = '';
             
-            popularWebSeriesData.forEach((series, index) => {
+            seriesData.forEach((series, index) => {
                 const row = document.createElement('tr');
-                const status = index % 3 === 0 ? 'draft' : 'published';
-                
                 row.innerHTML = `
-                    <td><img src="${series.imgSrc}" alt="${series.title}" class="movie-thumb"></td>
+                    <td><img src="${series.imgSrc}" class="movie-thumb" onerror="this.src='https://via.placeholder.com/60x90?text=No+Image'"></td>
                     <td><strong>${series.title}</strong></td>
                     <td>${series.genre}</td>
                     <td>${series.seasons} Season${series.seasons > 1 ? 's' : ''}</td>
                     <td>⭐ ${series.rating}</td>
-                    <td><span class="status-badge status-${status}">${status === 'published' ? 'Published' : 'Draft'}</span></td>
+                    <td><span class="status-badge status-${series.status}">${series.status === 'published' ? 'Published' : 'Draft'}</span></td>
                     <td>
                         <div class="action-btns">
-                            <button class="btn-icon btn-edit" onclick="editSeries('${series.title}')">✏️</button>
-                            <button class="btn-icon btn-delete" onclick="deleteSeries('${series.title}')">🗑️</button>
+                            <button class="btn-icon btn-edit" onclick="editSeries(${index})">✏️</button>
+                            <button class="btn-icon btn-delete" onclick="deleteSeries(${index})">🗑️</button>
                         </div>
                     </td>
                 `;
@@ -935,64 +1028,136 @@
             });
         }
 
-        // Functions
-        function addNewMovie() {
-            alert('Add New Movie functionality - Opens upload form');
+        // Navigation
+        function showSection(section) {
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            
+            document.getElementById(section + 'Section').classList.add('active');
+            event.target.closest('.nav-link').classList.add('active');
         }
 
-        function editMovie(title) {
-            alert(`Edit movie: ${title}`);
+        // Movie Modal Functions
+        function openAddMovieModal() {
+            document.getElementById('movieModalTitle').textContent = 'Add New Movie';
+            document.getElementById('movieForm').reset();
+            document.getElementById('movieIndex').value = '';
+            document.getElementById('movieModal').classList.add('active');
         }
 
-        function deleteMovie(title) {
-            if(confirm(`Are you sure you want to delete "${title}"?`)) {
-                alert(`Movie "${title}" deleted successfully!`);
+        function closeMovieModal() {
+            document.getElementById('movieModal').classList.remove('active');
+        }
+
+        function editMovie(index) {
+            const movie = moviesData[index];
+            document.getElementById('movieModalTitle').textContent = 'Edit Movie';
+            document.getElementById('movieIndex').value = index;
+            document.getElementById('movieTitle').value = movie.title;
+            document.getElementById('movieGenre').value = movie.genre;
+            document.getElementById('movieImage').value = movie.imgSrc;
+            document.getElementById('movieYear').value = movie.year;
+            document.getElementById('movieRating').value = movie.rating;
+            document.getElementById('movieStatus').value = movie.status;
+            document.getElementById('movieModal').classList.add('active');
+        }
+
+        function saveMovie(event) {
+            event.preventDefault();
+            const index = document.getElementById('movieIndex').value;
+            const movie = {
+                title: document.getElementById('movieTitle').value,
+                genre: document.getElementById('movieGenre').value,
+                imgSrc: document.getElementById('movieImage').value,
+                year: document.getElementById('movieYear').value,
+                rating: document.getElementById('movieRating').value,
+                status: document.getElementById('movieStatus').value
+            };
+
+            if (index === '') {
+                moviesData.push(movie);
+                alert('Movie added successfully!');
+            } else {
+                moviesData[index] = movie;
+                alert('Movie updated successfully!');
+            }
+
+            saveData();
+            renderMoviesTable();
+            updateStats();
+            closeMovieModal();
+        }
+
+        function deleteMovie(index) {
+            if (confirm(`Are you sure you want to delete "${moviesData[index].title}"?`)) {
+                moviesData.splice(index, 1);
+                saveData();
+                renderMoviesTable();
+                updateStats();
+                alert('Movie deleted successfully!');
             }
         }
 
-        function editSeries(title) {
-            alert(`Edit series: ${title}`);
+        // Series Modal Functions
+        function openAddSeriesModal() {
+            document.getElementById('seriesModalTitle').textContent = 'Add New Series';
+            document.getElementById('seriesForm').reset();
+            document.getElementById('seriesIndex').value = '';
+            document.getElementById('seriesModal').classList.add('active');
         }
 
-        function deleteSeries(title) {
-            if(confirm(`Are you sure you want to delete "${title}"?`)) {
-                alert(`Series "${title}" deleted successfully!`);
+        function closeSeriesModal() {
+            document.getElementById('seriesModal').classList.remove('active');
+        }
+
+        function editSeries(index) {
+            const series = seriesData[index];
+            document.getElementById('seriesModalTitle').textContent = 'Edit Series';
+            document.getElementById('seriesIndex').value = index;
+            document.getElementById('seriesTitle').value = series.title;
+            document.getElementById('seriesGenre').value = series.genre;
+            document.getElementById('seriesImage').value = series.imgSrc;
+            document.getElementById('seriesSeasons').value = series.seasons;
+            document.getElementById('seriesRating').value = series.rating;
+            document.getElementById('seriesStatus').value = series.status;
+            document.getElementById('seriesModal').classList.add('active');
+        }
+
+        function saveSeries(event) {
+            event.preventDefault();
+            const index = document.getElementById('seriesIndex').value;
+            const series = {
+                title: document.getElementById('seriesTitle').value,
+                genre: document.getElementById('seriesGenre').value,
+                imgSrc: document.getElementById('seriesImage').value,
+                seasons: document.getElementById('seriesSeasons').value,
+                rating: document.getElementById('seriesRating').value,
+                status: document.getElementById('seriesStatus').value
+            };
+
+            if (index === '') {
+                seriesData.push(series);
+                alert('Series added successfully!');
+            } else {
+                seriesData[index] = series;
+                alert('Series updated successfully!');
+            }
+
+            saveData();
+            renderSeriesTable();
+            updateStats();
+            closeSeriesModal();
+        }
+
+        function deleteSeries(index) {
+            if (confirm(`Are you sure you want to delete "${seriesData[index].title}"?`)) {
+                seriesData.splice(index, 1);
+                saveData();
+                renderSeriesTable();
+                updateStats();
+                alert('Series deleted successfully!');
             }
         }
-
-        function toggleTheme() {
-            alert('Theme toggle functionality');
-        }
-
-        function logout() {
-            if(confirm('Are you sure you want to logout?')) {
-                window.location.href = 'index.html';
-            }
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            populateMoviesTable();
-            populateWebSeriesTable();
-        });
-
-        // Smooth scroll for navigation
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if(href.startsWith('#')) {
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if(target) {
-                        target.scrollIntoView({ behavior: 'smooth' });
-                    }
-                }
-                
-                // Update active state
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
     </script>
 </body>
 </html>
