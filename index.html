@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineHub - Your Ultimate Movie Destination</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 50%, #e8f5e9 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, #00897b 0%, #4dd0e1 100%);
+            padding: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #26a69a 0%, #4fc3f7 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-bar button {
+            padding: 1rem 2rem;
+            background: #00897b;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .search-bar button:hover {
+            background: #00695c;
+            transform: scale(1.05);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 2rem;
+            color: #00897b;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #00897b, #4dd0e1);
+            border-radius: 2px;
+        }
+
+        /* Movie Grid */
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .movie-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0,137,123,0.3);
+        }
+
+        .movie-poster {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(135deg, #b2dfdb 0%, #b3e5fc 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #00897b;
+        }
+
+        .movie-info {
+            padding: 1.5rem;
+        }
+
+        .movie-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #00897b;
+            margin-bottom: 0.5rem;
+        }
+
+        .movie-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .rating {
+            color: #4dd0e1;
+            font-weight: bold;
+        }
+
+        .movie-genre {
+            color: #00897b;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Categories */
+        .categories {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .category-btn {
+            padding: 0.8rem 1.5rem;
+            background: white;
+            color: #00897b;
+            border: 2px solid #00897b;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: linear-gradient(135deg, #00897b 0%, #4dd0e1 100%);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* Features Section */
+        .features {
+            background: white;
+            padding: 3rem 2rem;
+            margin: 3rem 0;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #e0f2f1 0%, #e1f5fe 100%);
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,137,123,0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            color: #00897b;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(135deg, #26a69a 0%, #4fc3f7 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            color: white;
+            border-radius: 20px;
+            margin: 3rem 0;
+        }
+
+        .newsletter h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 2rem auto 0;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 50px;
+            outline: none;
+        }
+
+        .newsletter-form button {
+            padding: 1rem 2rem;
+            background: white;
+            color: #00897b;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #00695c 0%, #0277bd 100%);
+            color: white;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #4dd0e1;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #4dd0e1;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #4dd0e1;
+            transform: scale(1.1);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            color: #b2dfdb;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .search-bar {
+                flex-direction: column;
+            }
+
+            .movie-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">🎬 CineHub</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#movies">Movies</a></li>
+                <li><a href="#genres">Genres</a></li>
+                <li><a href="#trending">Trending</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Discover Your Next Favorite Movie</h1>
+        <p>Explore thousands of movies, TV shows, and more</p>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for movies, actors, genres...">
+            <button>Search</button>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <div class="container">
+        <h2 class="section-title">Browse by Genre</h2>
+        <div class="categories">
+            <button class="category-btn active">All</button>
+            <button class="category-btn">Action</button>
+            <button class="category-btn">Comedy</button>
+            <button class="category-btn">Drama</button>
+            <button class="category-btn">Horror</button>
+            <button class="category-btn">Sci-Fi</button>
+            <button class="category-btn">Romance</button>
+            <button class="category-btn">Thriller</button>
+            <button class="category-btn">Animation</button>
+        </div>
+
+        <!-- Trending Movies -->
+        <h2 class="section-title" id="trending">🔥 Trending Now</h2>
+        <div class="movie-grid">
+            <div class="movie-card">
+                <div class="movie-poster">🎥</div>
+                <div class="movie-info">
+                    <div class="movie-title">The Epic Adventure</div>
+                    <div class="movie-meta">
+                        <span>2024</span>
+                        <span class="rating">⭐ 8.5</span>
+                    </div>
+                    <div class="movie-genre">Action, Adventure</div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <div class="movie-poster">🎭</div>
+                <div class="movie-info">
+                    <div class="movie-title">Laugh Out Loud</div>
+                    <div class="movie-meta">
+                        <span>2024</span>
+                        <span class="rating">⭐ 7.8</span>
+                    </div>
+                    <div class="movie-genre">Comedy</div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <div class="movie-poster">🚀</div>
+                <div class="movie-info">
+                    <div class="movie-title">Space Odyssey</div>
+                    <div class="movie-meta">
+                        <span>2024</span>
+                        <span class="rating">⭐ 9.1</span>
+                    </div>
+                    <div class="movie-genre">Sci-Fi, Adventure</div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <div class="movie-poster">💕</div>
+                <div class="movie-info">
+                    <div class="movie-title">Love in Paris</div>
+                    <div class="movie-meta">
+                        <span>2024</span>
+                        <span class="rating">⭐ 8.2</span>
+                    </div>
+                    <div class="movie-genre">Romance, Drama</div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <div class="movie-poster">👻</div>
+                <div class="movie-info">
+                    <div class="movie-title">Midnight Terror</div>
+                    <div class="movie-meta">
+                        <span>2024</span>
+                        <span class="rating">⭐ 7.5</span>
+                    </div>
+                    <div class="movie-genre">Horror, Thriller</div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <div class="movie-poster">🦸</div>
+                <div class="movie-info">
+                    <div class="movie-title">Hero Rising</div>
+                    <div class="movie-meta">
+                        <span>2024</span>
+                        <span class="rating">⭐ 8.9</span>
+                    </div>
+                    <div class="movie-genre">Action, Fantasy</div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <div class="movie-poster">🎨</div>
+                <div class="movie-info">
+                    <div class="movie-title">Animated Dreams</div>
+                    <div class="movie-meta">
+                        <span>2024</span>
+                        <span class="rating">⭐ 8.7</span>
+                    </div>
+                    <div class="movie-genre">Animation, Family</div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <div class="movie-poster">🔍</div>
+                <div class="movie-info">
+                    <div class="movie-title">Mystery Unveiled</div>
+                    <div class="movie-meta">
+                        <span>2024</span>
+                        <span class="rating">⭐ 8.3</span>
+                    </div>
+                    <div class="movie-genre">Mystery, Thriller</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- New Releases -->
+        <h2 class="section-title" id="movies">🆕 New Releases</h2>
+        <div class="movie-grid">
+            <div class="movie-card">
+                <div class="movie-poster">🌊</div>
+                <div class="movie-info">
+                    <div class="movie-title">Ocean's Mystery</div>
+                    <div class="movie-meta">
+                        <span>2024</span>
+                        <span class="rating">⭐ 8.0</span>
+                    </div>
+                    <div class="movie-genre">Adventure, Drama</div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <div class="movie-poster">⚔️</div>
+                <div class="movie-info">
+                    <div class="movie-title">Warriors Legacy</div>
+                    <div class="movie-meta">
+                        <span>2024</span>
+                        <span class="rating">⭐ 8.6</span>
+                    </div>
+                    <div class="movie-genre">Action, History</div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <div class="movie-poster">🎪</div>
+                <div class="movie-info">
+                    <div class="movie-title">Circus of Dreams</div>
+                    <div class="movie-meta">
+                        <span>2024</span>
+                        <span class="rating">⭐ 7.9</span>
+                    </div>
+                    <div class="movie-genre">Fantasy, Family</div>
+                </div>
+            </div>
+            <div class="movie-card">
+                <div class="movie-poster">🏙️</div>
+                <div class="movie-info">
+                    <div class="movie-title">City Lights</div>
+                    <div class="movie-meta">
+                        <span>2024</span>
+                        <span class="rating">⭐ 8.4</span>
+                    </div>
+                    <div class="movie-genre">Drama, Romance</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose CineHub?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📺</div>
+                    <div class="feature-title">Unlimited Streaming</div>
+                    <p>Watch unlimited movies and TV shows anytime, anywhere</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-title">Personalized</div>
+                    <p>Get recommendations based on your viewing preferences</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-title">Multi-Device</div>
+                    <p>Watch on your phone, tablet, laptop, or smart TV</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌟</div>
+                    <div class="feature-title">HD Quality</div>
+                    <p>Enjoy crystal clear picture quality up to 4K resolution</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <div class="feature-title">Reviews & Ratings</div>
+                    <p>Read reviews and ratings from millions of users</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <div class="feature-title">New Releases</div>
+                    <p>Get notified about new movies and shows instantly</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="container">
+        <div class="newsletter">
+            <h2>Stay Updated!</h2>
+            <p>Subscribe to our newsletter for the latest movie updates and exclusive offers</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="about">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About CineHub</h3>
+                <p>Your ultimate destination for discovering and streaming the best movies and TV shows from around the world.</p>
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">🐦</a>
+                    <a href="#">📷</a>
+                    <a href="#">▶️</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Browse Movies</a></li>
+                    <li><a href="#">TV Shows</a></li>
+                    <li><a href="#">Top Rated</a></li>
+                    <li><a href="#">Coming Soon</a></li>
+                    <li><a href="#">My Watchlist</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li>📧 info@cinehub.com</li>
+                    <li>📞 +1 (555) 123-4567</li>
+                    <li>📍 123 Movie Street, Hollywood, CA</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 CineHub. All rights reserved. Made with ❤️ for movie lovers.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Category filter functionality
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Search functionality
+        const searchBtn = document.querySelector('.search-bar button');
+        const searchInput = document.querySelector('.search-bar input');
+        
+        searchBtn.addEventListener('click', function() {
+            const searchTerm = searchInput.value;
+            if(searchTerm) {
+                alert('Searching for: ' + searchTerm);
+            }
+        });
+
+        // Newsletter form
+        const newsletterForm = document.querySelector('.newsletter-form');
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input').value;
+            alert('Thank you for subscribing with: ' + email);
+            this.reset();
+        });
+
+        // Movie card click
+        const movieCards = document.querySelectorAll('.movie-card');
+        movieCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const title = this.querySelector('.movie-title').textContent;
+                alert('Opening: ' + title);
+            });
+        });
+    </script>
+</body>
+</html>
