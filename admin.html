@@ -84,7 +84,7 @@
             font-weight: 500;
         }
 
-        .form-group input {
+        .form-group input, .form-group select, .form-group textarea {
             width: 100%;
             padding: 1rem;
             background: rgba(255, 255, 255, 0.05);
@@ -96,7 +96,7 @@
             transition: all 0.3s;
         }
 
-        .form-group input:focus {
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
             border-color: var(--neon-blue);
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
         }
@@ -233,11 +233,6 @@
             transition: all 0.3s;
         }
 
-        .search-bar input:focus {
-            border-color: var(--neon-blue);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
-        }
-
         .search-icon {
             position: absolute;
             left: 1.2rem;
@@ -250,26 +245,6 @@
             display: flex;
             align-items: center;
             gap: 1.5rem;
-        }
-
-        .icon-btn {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .icon-btn:hover {
-            background: rgba(0, 212, 255, 0.1);
-            border-color: var(--neon-blue);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
         }
 
         .admin-profile {
@@ -380,6 +355,57 @@
             color: var(--neon-green);
         }
 
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 10px;
+            transition: width 0.3s;
+        }
+
+        /* Charts */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 1.5rem;
+        }
+
+        .chart-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-placeholder {
+            height: 250px;
+            background: rgba(0, 212, 255, 0.05);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            border: 1px dashed var(--border-color);
+        }
+
         /* Table */
         .table-card {
             background: var(--card-bg);
@@ -487,6 +513,18 @@
             border: 1px solid var(--neon-pink);
         }
 
+        .status-active {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--neon-green);
+            border: 1px solid var(--neon-green);
+        }
+
+        .status-inactive {
+            background: rgba(255, 0, 110, 0.1);
+            color: var(--neon-pink);
+            border: 1px solid var(--neon-pink);
+        }
+
         .action-btns {
             display: flex;
             gap: 0.5rem;
@@ -587,6 +625,26 @@
             color: white;
         }
 
+        /* Settings Cards */
+        .settings-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .setting-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .setting-card h3 {
+            color: var(--neon-blue);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .sidebar {
@@ -603,6 +661,10 @@
 
             .search-bar {
                 max-width: 150px;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -642,6 +704,12 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <div class="nav-link" onclick="showSection('earnings')">
+                        <span class="nav-icon">💰</span>
+                        <span class="nav-text">Earnings</span>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <div class="nav-link" onclick="showSection('movies')">
                         <span class="nav-icon">🎬</span>
                         <span class="nav-text">Movies</span>
@@ -657,6 +725,24 @@
                     <div class="nav-link" onclick="showSection('upload')">
                         <span class="nav-icon">⬆️</span>
                         <span class="nav-text">Upload Movie</span>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" onclick="showSection('users')">
+                        <span class="nav-icon">👥</span>
+                        <span class="nav-text">Users</span>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" onclick="showSection('subscription')">
+                        <span class="nav-icon">💳</span>
+                        <span class="nav-text">Subscription</span>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" onclick="showSection('settings')">
+                        <span class="nav-icon">⚙️</span>
+                        <span class="nav-text">Settings</span>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -710,12 +796,106 @@
                     <div class="stat-card">
                         <div class="stat-header">
                             <div>
-                                <div class="stat-title">Published</div>
-                                <div class="stat-value" id="publishedCount">0</div>
-                                <div class="stat-change">Live Content</div>
+                                <div class="stat-title">Total Users</div>
+                                <div class="stat-value" id="totalUsers">0</div>
+                                <div class="stat-change">Registered Users</div>
                             </div>
-                            <div class="stat-icon" style="background: rgba(0, 255, 136, 0.1); color: var(--neon-green);">✅</div>
+                            <div class="stat-icon" style="background: rgba(0, 255, 136, 0.1); color: var(--neon-green);">👥</div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Earnings Section -->
+            <div id="earningsSection" class="content-section">
+                <h2 style="color: var(--neon-blue); margin-bottom: 2rem; font-size: 2rem;">💰 Earnings Dashboard</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Total Movies</div>
+                                <div class="stat-value">17</div>
+                                <div class="stat-change">↑ 12% from last month</div>
+                            </div>
+                            <div class="stat-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--neon-blue);">🎬</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Total Users</div>
+                                <div class="stat-value">45.2K</div>
+                                <div class="stat-change">↑ 8% from last month</div>
+                            </div>
+                            <div class="stat-icon" style="background: rgba(181, 55, 242, 0.1); color: var(--neon-purple);">👥</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Daily Active Users</div>
+                                <div class="stat-value">12.8K</div>
+                                <div class="stat-change">↑ 15% from yesterday</div>
+                            </div>
+                            <div class="stat-icon" style="background: rgba(0, 255, 136, 0.1); color: var(--neon-green);">📊</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Monthly Revenue</div>
+                                <div class="stat-value">₹69.5K</div>
+                                <div class="stat-change">↑ 23% from last month</div>
+                            </div>
+                            <div class="stat-icon" style="background: rgba(255, 0, 110, 0.1); color: var(--neon-pink);">💰</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Total Downloads</div>
+                                <div class="stat-value">156K</div>
+                                <div class="stat-change">↑ 18% from last month</div>
+                            </div>
+                            <div class="stat-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--neon-blue);">⬇️</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-title">Storage Used</div>
+                                <div class="stat-value">2.4TB</div>
+                                <div class="stat-change">of 15TB total</div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 16%;"></div>
+                                </div>
+                            </div>
+                            <div class="stat-icon" style="background: rgba(181, 55, 242, 0.1); color: var(--neon-purple);">💾</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-title">Daily Movie Views</div>
+                        <div class="chart-placeholder">📈 Line Chart: Daily Views Trend</div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-title">Category Performance</div>
+                        <div class="chart-placeholder">📊 Bar Chart: Genre-wise Performance</div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-title">User Subscription Types</div>
+                        <div class="chart-placeholder">🥧 Pie Chart: Free / Premium / VIP</div>
                     </div>
                 </div>
             </div>
@@ -788,10 +968,158 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Users Section -->
+            <div id="usersSection" class="content-section">
+                <div class="table-card">
+                    <div class="table-header">
+                        <div class="table-title">👥 Users Management</div>
+                        <button class="btn btn-primary" onclick="openAddUserModal()">➕ Add New User</button>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="movies-table">
+                            <thead>
+                                <tr>
+                                    <th>User ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Signup Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subscription Section -->
+            <div id="subscriptionSection" class="content-section">
+                <div class="table-card">
+                    <div class="table-header">
+                        <div class="table-title">💳 Subscription Management</div>
+                        <button class="btn btn-primary" onclick="openAddSubscriptionModal()">➕ Add Subscription</button>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="movies-table">
+                            <thead>
+                                <tr>
+                                    <th>User Name</th>
+                                    <th>Email</th>
+                                    <th>Plan Type</th>
+                                    <th>Amount</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="subscriptionTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div id="settingsSection" class="content-section">
+                <h2 style="color: var(--neon-blue); margin-bottom: 2rem; font-size: 2rem;">⚙️ Settings</h2>
+                
+                <div class="settings-grid">
+                    <!-- General Settings -->
+                    <div class="setting-card">
+                        <h3>🌐 General Settings</h3>
+                        <form onsubmit="saveGeneralSettings(event)">
+                            <div class="form-group">
+                                <label>Website Name</label>
+                                <input type="text" id="websiteName" value="CineHub" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Website Description</label>
+                                <textarea id="websiteDesc" rows="3" required>Your ultimate destination for movies and web series</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Contact Email</label>
+                                <input type="email" id="contactEmail" value="info@cinehub.com" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                    </div>
+
+                    <!-- Admin Settings -->
+                    <div class="setting-card">
+                        <h3>🔐 Admin Settings</h3>
+                        <form onsubmit="changePassword(event)">
+                            <div class="form-group">
+                                <label>Current Password</label>
+                                <input type="password" id="currentPassword" required>
+                            </div>
+                            <div class="form-group">
+                                <label>New Password</label>
+                                <input type="password" id="newPassword" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm New Password</label>
+                                <input type="password" id="confirmPassword" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Change Password</button>
+                        </form>
+                    </div>
+
+                    <!-- Payment Settings -->
+                    <div class="setting-card">
+                        <h3>💰 Payment Settings</h3>
+                        <form onsubmit="savePaymentSettings(event)">
+                            <div class="form-group">
+                                <label>Currency</label>
+                                <select id="currency">
+                                    <option value="INR">₹ INR - Indian Rupee</option>
+                                    <option value="USD">$ USD - US Dollar</option>
+                                    <option value="EUR">€ EUR - Euro</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Free Plan Price</label>
+                                <input type="number" id="freePlanPrice" value="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Premium Plan Price</label>
+                                <input type="number" id="premiumPlanPrice" value="299" required>
+                            </div>
+                            <div class="form-group">
+                                <label>VIP Plan Price</label>
+                                <input type="number" id="vipPlanPrice" value="599" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                    </div>
+
+                    <!-- Storage Settings -->
+                    <div class="setting-card">
+                        <h3>💾 Storage Settings</h3>
+                        <div class="form-group">
+                            <label>Total Storage Capacity</label>
+                            <input type="text" value="15 TB" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Used Storage</label>
+                            <input type="text" value="2.4 TB (16%)" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Available Storage</label>
+                            <input type="text" value="12.6 TB" readonly>
+                        </div>
+                        <div class="progress-bar" style="height: 20px;">
+                            <div class="progress-fill" style="width: 16%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 
-    <!-- Add/Edit Movie Modal -->
+    <!-- Movie Modal -->
     <div id="movieModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -822,7 +1150,7 @@
                 </div>
                 <div class="form-group">
                     <label>Status *</label>
-                    <select id="movieStatus" style="width: 100%; padding: 1rem; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-primary); font-size: 1rem;">
+                    <select id="movieStatus">
                         <option value="published">Published</option>
                         <option value="draft">Draft</option>
                     </select>
@@ -835,7 +1163,7 @@
         </div>
     </div>
 
-    <!-- Add/Edit Series Modal -->
+    <!-- Series Modal -->
     <div id="seriesModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -866,7 +1194,7 @@
                 </div>
                 <div class="form-group">
                     <label>Status *</label>
-                    <select id="seriesStatus" style="width: 100%; padding: 1rem; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-primary); font-size: 1rem;">
+                    <select id="seriesStatus">
                         <option value="published">Published</option>
                         <option value="draft">Draft</option>
                     </select>
@@ -879,285 +1207,94 @@
         </div>
     </div>
 
-    <script>
-        // Authentication
-        const ADMIN_USERNAME = 'hubbymovies007';
-        const ADMIN_PASSWORD = 'hubby555';
+    <!-- User Modal -->
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="userModalTitle">Add New User</h2>
+                <button class="close-btn" onclick="closeUserModal()">✕</button>
+            </div>
+            <form id="userForm" onsubmit="saveUser(event)">
+                <input type="hidden" id="userIndex">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" id="userName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" id="userEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone *</label>
+                    <input type="tel" id="userPhone" required>
+                </div>
+                <div class="form-group">
+                    <label>Status *</label>
+                    <select id="userStatus">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Save User</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeUserModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-        function handleLogin(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+    <!-- Subscription Modal -->
+    <div id="subscriptionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="subscriptionModalTitle">Add Subscription</h2>
+                <button class="close-btn" onclick="closeSubscriptionModal()">✕</button>
+            </div>
+            <form id="subscriptionForm" onsubmit="saveSubscription(event)">
+                <input type="hidden" id="subscriptionIndex">
+                <div class="form-group">
+                    <label>User Name *</label>
+                    <input type="text" id="subUserName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" id="subEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Plan Type *</label>
+                    <select id="subPlanType">
+                        <option value="Free">Free</option>
+                        <option value="Premium">Premium</option>
+                        <option value="VIP">VIP</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Amount *</label>
+                    <input type="number" id="subAmount" required>
+                </div>
+                <div class="form-group">
+                    <label>Start Date *</label>
+                    <input type="date" id="subStartDate" required>
+                </div>
+                <div class="form-group">
+                    <label>End Date *</label>
+                    <input type="date" id="subEndDate" required>
+                </div>
+                <div class="form-group">
+                    <label>Status *</label>
+                    <select id="subStatus">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Save Subscription</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeSubscriptionModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-                localStorage.setItem('adminLoggedIn', 'true');
-                document.getElementById('loginPage').style.display = 'none';
-                document.getElementById('dashboardPage').classList.add('active');
-                loadData();
-            } else {
-                document.getElementById('errorMessage').style.display = 'block';
-            }
-        }
-
-        function logout() {
-            if (confirm('Are you sure you want to logout?')) {
-                localStorage.removeItem('adminLoggedIn');
-                location.reload();
-            }
-        }
-
-        // Check if already logged in
-        window.onload = function() {
-            if (localStorage.getItem('adminLoggedIn') === 'true') {
-                document.getElementById('loginPage').style.display = 'none';
-                document.getElementById('dashboardPage').classList.add('active');
-                loadData();
-            }
-        };
-
-        // Initial Data
-        let moviesData = [
-            { title: "RRR", genre: "Action, Drama", imgSrc: "https://iili.io/F2ziUOJ.jpg", year: "2022", rating: "8.8", status: "published" },
-            { title: "Kalki 2898 AD", genre: "Action, Drama", imgSrc: "https://iili.io/KXXLZ7V.jpg", year: "2024", rating: "8.5", status: "published" },
-            { title: "Tiger Nageswara Rao", genre: "Dark Comedy", imgSrc: "https://iili.io/K8M02ef.jpg", year: "2023", rating: "7.8", status: "published" },
-            { title: "Ek Deewane Ki Deewaniyat", genre: "Romance", imgSrc: "https://iili.io/K6lu9ea.jpg", year: "2024", rating: "7.5", status: "published" },
-            { title: "Choked", genre: "Drama", imgSrc: "https://iili.io/K8MXjAF.jpg", year: "2020", rating: "7.2", status: "published" },
-            { title: "Shershaah", genre: "Biographical War", imgSrc: "https://iili.io/F2zi8Hg.jpg", year: "2021", rating: "8.9", status: "published" },
-            { title: "Drishyam 2", genre: "Thriller", imgSrc: "https://iili.io/F2zikUF.jpg", year: "2022", rating: "8.6", status: "published" },
-            { title: "Jai Bhim", genre: "Legal Drama", imgSrc: "https://iili.io/F2zigDv.jpg", year: "2021", rating: "9.2", status: "published" },
-            { title: "Freddy", genre: "Thriller", imgSrc: "https://iili.io/F2z1RHJ.jpg", year: "2022", rating: "7.4", status: "published" },
-            { title: "Brahmāstra: Part One – Shiva", genre: "Fantasy Adventure", imgSrc: "https://iili.io/F2zi6Vp.jpg", year: "2022", rating: "7.9", status: "published" },
-            { title: "Tanhaji: The Unsung Warrior", genre: "Historical Action", imgSrc: "https://iili.io/F2ziPiN.jpg", year: "2020", rating: "8.4", status: "published" },
-            { title: "Sita Ramam", genre: "Romantic Drama", imgSrc: "https://iili.io/F2zisfI.jpg", year: "2022", rating: "8.7", status: "published" },
-            { title: "Sirf Ek Bandaa Kaafi Hai", genre: "Courtroom Drama", imgSrc: "https://iili.io/F2ziLlt.jpg", year: "2023", rating: "8.3", status: "published" },
-            { title: "12th Fail", genre: "Biographical Drama", imgSrc: "https://iili.io/F2ziQUX.jpg", year: "2023", rating: "9.1", status: "published" },
-            { title: "Housefull 5", genre: "Upcoming Drama", imgSrc: "https://iili.io/F2I2FNp.jpg", year: "2024", rating: "N/A", status: "draft" },
-            { title: "Titanic", genre: "Disaster, Tragic Romance", imgSrc: "https://iili.io/F2InRMQ.jpg", year: "1997", rating: "7.9", status: "published" },
-            { title: "OMG", genre: "Comedy, Drama", imgSrc: "https://iili.io/F2I1CLN.jpg", year: "2012", rating: "8.1", status: "published" }
-        ];
-
-        let seriesData = [
-            { title: "Mirzapur", genre: "Crime Thriller", imgSrc: "https://iili.io/F27Hhgt.jpg", seasons: "3", rating: "8.5", status: "published" },
-            { title: "The Family Man", genre: "Spy Thriller", imgSrc: "https://iili.io/F27HyrP.jpg", seasons: "2", rating: "8.7", status: "published" },
-            { title: "Asur 2", genre: "Crime Thriller", imgSrc: "https://iili.io/F27HOes.jpg", seasons: "2", rating: "8.4", status: "published" },
-            { title: "Sacred Games", genre: "Crime Thriller", imgSrc: "https://iili.io/F27HN7n.jpg", seasons: "2", rating: "8.6", status: "published" },
-            { title: "Paatal Lok", genre: "Crime Thriller", imgSrc: "https://iili.io/F27HSLl.jpg", seasons: "1", rating: "8.1", status: "published" },
-            { title: "Farzi", genre: "Crime Thriller", imgSrc: "https://iili.io/F39aGXj.jpg", seasons: "1", rating: "8.3", status: "published" },
-            { title: "Scam 1992", genre: "Biographical Crime", imgSrc: "https://iili.io/F27Hr1S.jpg", seasons: "1", rating: "9.5", status: "published" },
-            { title: "Panchayat", genre: "Comedy Drama", imgSrc: "https://iili.io/F27HgB2.jpg", seasons: "3", rating: "8.9", status: "published" },
-            { title: "Rocket Boys", genre: "Biographical Drama", imgSrc: "https://iili.io/F27H4r7.jpg", seasons: "2", rating: "8.8", status: "published" },
-            { title: "Made in Heaven", genre: "Drama", imgSrc: "https://iili.io/F27Hsku.jpg", seasons: "2", rating: "8.3", status: "published" },
-            { title: "Delhi Crime", genre: "Crime Drama", imgSrc: "https://iili.io/F27HLmb.jpg", seasons: "2", rating: "8.5", status: "published" },
-            { title: "Criminal Justice", genre: "Legal Drama", imgSrc: "https://iili.io/F27HZIj.jpg", seasons: "3", rating: "8.1", status: "published" },
-            { title: "Breathe", genre: "Crime Thriller", imgSrc: "https://iili.io/F27Hthx.jpg", seasons: "2", rating: "8.0", status: "published" },
-            { title: "Special OPS", genre: "Spy Thriller", imgSrc: "https://iili.io/F2YqPjt.jpg", seasons: "1", rating: "8.2", status: "published" },
-            { title: "SHE", genre: "Crime drama", imgSrc: "https://iili.io/F2YfN1f.jpg", seasons: "2", rating: "7.8", status: "published" }
-        ];
-
-        // Load from localStorage if exists
-        function loadData() {
-            const savedMovies = localStorage.getItem('moviesData');
-            const savedSeries = localStorage.getItem('seriesData');
-            
-            if (savedMovies) moviesData = JSON.parse(savedMovies);
-            if (savedSeries) seriesData = JSON.parse(savedSeries);
-            
-            renderMoviesTable();
-            renderSeriesTable();
-            updateStats();
-        }
-
-        function saveData() {
-            localStorage.setItem('moviesData', JSON.stringify(moviesData));
-            localStorage.setItem('seriesData', JSON.stringify(seriesData));
-        }
-
-        function updateStats() {
-            document.getElementById('totalMovies').textContent = moviesData.length;
-            document.getElementById('totalSeries').textContent = seriesData.length;
-            const published = moviesData.filter(m => m.status === 'published').length + 
-                            seriesData.filter(s => s.status === 'published').length;
-            document.getElementById('publishedCount').textContent = published;
-        }
-
-        function renderMoviesTable() {
-            const tbody = document.getElementById('moviesTableBody');
-            tbody.innerHTML = '';
-            
-            moviesData.forEach((movie, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><img src="${movie.imgSrc}" class="movie-thumb" onerror="this.src='https://via.placeholder.com/60x90?text=No+Image'"></td>
-                    <td><strong>${movie.title}</strong></td>
-                    <td>${movie.genre}</td>
-                    <td>${movie.year}</td>
-                    <td>⭐ ${movie.rating}</td>
-                    <td><span class="status-badge status-${movie.status}">${movie.status === 'published' ? 'Published' : 'Draft'}</span></td>
-                    <td>
-                        <div class="action-btns">
-                            <button class="btn-icon btn-edit" onclick="editMovie(${index})">✏️</button>
-                            <button class="btn-icon btn-delete" onclick="deleteMovie(${index})">🗑️</button>
-                        </div>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        function renderSeriesTable() {
-            const tbody = document.getElementById('seriesTableBody');
-            tbody.innerHTML = '';
-            
-            seriesData.forEach((series, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><img src="${series.imgSrc}" class="movie-thumb" onerror="this.src='https://via.placeholder.com/60x90?text=No+Image'"></td>
-                    <td><strong>${series.title}</strong></td>
-                    <td>${series.genre}</td>
-                    <td>${series.seasons} Season${series.seasons > 1 ? 's' : ''}</td>
-                    <td>⭐ ${series.rating}</td>
-                    <td><span class="status-badge status-${series.status}">${series.status === 'published' ? 'Published' : 'Draft'}</span></td>
-                    <td>
-                        <div class="action-btns">
-                            <button class="btn-icon btn-edit" onclick="editSeries(${index})">✏️</button>
-                            <button class="btn-icon btn-delete" onclick="deleteSeries(${index})">🗑️</button>
-                        </div>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        // Navigation
-        function showSection(section) {
-            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            
-            document.getElementById(section + 'Section').classList.add('active');
-            event.target.closest('.nav-link').classList.add('active');
-        }
-
-        // Movie Modal Functions
-        function openAddMovieModal() {
-            document.getElementById('movieModalTitle').textContent = 'Add New Movie';
-            document.getElementById('movieForm').reset();
-            document.getElementById('movieIndex').value = '';
-            document.getElementById('movieModal').classList.add('active');
-        }
-
-        function closeMovieModal() {
-            document.getElementById('movieModal').classList.remove('active');
-        }
-
-        function editMovie(index) {
-            const movie = moviesData[index];
-            document.getElementById('movieModalTitle').textContent = 'Edit Movie';
-            document.getElementById('movieIndex').value = index;
-            document.getElementById('movieTitle').value = movie.title;
-            document.getElementById('movieGenre').value = movie.genre;
-            document.getElementById('movieImage').value = movie.imgSrc;
-            document.getElementById('movieYear').value = movie.year;
-            document.getElementById('movieRating').value = movie.rating;
-            document.getElementById('movieStatus').value = movie.status;
-            document.getElementById('movieModal').classList.add('active');
-        }
-
-        function saveMovie(event) {
-            event.preventDefault();
-            const index = document.getElementById('movieIndex').value;
-            const movie = {
-                title: document.getElementById('movieTitle').value,
-                genre: document.getElementById('movieGenre').value,
-                imgSrc: document.getElementById('movieImage').value,
-                year: document.getElementById('movieYear').value,
-                rating: document.getElementById('movieRating').value,
-                status: document.getElementById('movieStatus').value
-            };
-
-            if (index === '') {
-                moviesData.push(movie);
-                alert('Movie added successfully!');
-            } else {
-                moviesData[index] = movie;
-                alert('Movie updated successfully!');
-            }
-
-            saveData();
-            renderMoviesTable();
-            updateStats();
-            closeMovieModal();
-        }
-
-        function deleteMovie(index) {
-            if (confirm(`Are you sure you want to delete "${moviesData[index].title}"?`)) {
-                moviesData.splice(index, 1);
-                saveData();
-                renderMoviesTable();
-                updateStats();
-                alert('Movie deleted successfully!');
-            }
-        }
-
-        // Series Modal Functions
-        function openAddSeriesModal() {
-            document.getElementById('seriesModalTitle').textContent = 'Add New Series';
-            document.getElementById('seriesForm').reset();
-            document.getElementById('seriesIndex').value = '';
-            document.getElementById('seriesModal').classList.add('active');
-        }
-
-        function closeSeriesModal() {
-            document.getElementById('seriesModal').classList.remove('active');
-        }
-
-        function editSeries(index) {
-            const series = seriesData[index];
-            document.getElementById('seriesModalTitle').textContent = 'Edit Series';
-            document.getElementById('seriesIndex').value = index;
-            document.getElementById('seriesTitle').value = series.title;
-            document.getElementById('seriesGenre').value = series.genre;
-            document.getElementById('seriesImage').value = series.imgSrc;
-            document.getElementById('seriesSeasons').value = series.seasons;
-            document.getElementById('seriesRating').value = series.rating;
-            document.getElementById('seriesStatus').value = series.status;
-            document.getElementById('seriesModal').classList.add('active');
-        }
-
-        function saveSeries(event) {
-            event.preventDefault();
-            const index = document.getElementById('seriesIndex').value;
-            const series = {
-                title: document.getElementById('seriesTitle').value,
-                genre: document.getElementById('seriesGenre').value,
-                imgSrc: document.getElementById('seriesImage').value,
-                seasons: document.getElementById('seriesSeasons').value,
-                rating: document.getElementById('seriesRating').value,
-                status: document.getElementById('seriesStatus').value
-            };
-
-            if (index === '') {
-                seriesData.push(series);
-                alert('Series added successfully!');
-            } else {
-                seriesData[index] = series;
-                alert('Series updated successfully!');
-            }
-
-            saveData();
-            renderSeriesTable();
-            updateStats();
-            closeSeriesModal();
-        }
-
-        function deleteSeries(index) {
-            if (confirm(`Are you sure you want to delete "${seriesData[index].title}"?`)) {
-                seriesData.splice(index, 1);
-                saveData();
-                renderSeriesTable();
-                updateStats();
-                alert('Series deleted successfully!');
-            }
-        }
-    </script>
+    <script src="admin-script.js"></script>
 </body>
 </html>
