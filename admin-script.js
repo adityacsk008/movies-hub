@@ -9,25 +9,46 @@
 // Authentication
 const ADMIN_USERNAME = 'hubbymovies007';
 const ADMIN_PASSWORD = 'hubby555';
+const ADMIN_EMAIL = 'adityaenigma92@gmail.com';
 
 function handleLogin(event) {
     event.preventDefault();
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
-    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+    // Check if login is with username/password OR admin email
+    const isValidUsername = (username === ADMIN_USERNAME && password === ADMIN_PASSWORD);
+    const isValidEmail = (username === ADMIN_EMAIL);
+
+    if (isValidUsername || isValidEmail) {
         localStorage.setItem('adminLoggedIn', 'true');
+        localStorage.setItem('adminUser', username);
         document.getElementById('loginPage').style.display = 'none';
         document.getElementById('dashboardPage').classList.add('active');
         loadData();
+        
+        // Show success message
+        if (isValidEmail) {
+            setTimeout(() => {
+                alert('Welcome Admin! Logged in with Gmail: ' + username);
+            }, 500);
+        } else {
+            setTimeout(() => {
+                alert('Welcome Admin! Logged in successfully.');
+            }, 500);
+        }
     } else {
         document.getElementById('errorMessage').style.display = 'block';
+        setTimeout(() => {
+            document.getElementById('errorMessage').style.display = 'none';
+        }, 3000);
     }
 }
 
 function logout() {
     if (confirm('Are you sure you want to logout?')) {
         localStorage.removeItem('adminLoggedIn');
+        localStorage.removeItem('adminUser');
         location.reload();
     }
 }
@@ -38,6 +59,18 @@ window.onload = function() {
         document.getElementById('loginPage').style.display = 'none';
         document.getElementById('dashboardPage').classList.add('active');
         loadData();
+        
+        // Update admin profile display
+        const adminUser = localStorage.getItem('adminUser');
+        if (adminUser) {
+            const displayName = adminUser.includes('@') ? 'Admin (Gmail)' : 'Admin';
+            const profileElements = document.querySelectorAll('.admin-profile span');
+            profileElements.forEach(el => {
+                if (el.textContent === 'Admin') {
+                    el.textContent = displayName;
+                }
+            });
+        }
     }
 };
 
@@ -46,18 +79,38 @@ let moviesData = [
     { title: "RRR", genre: "Action, Drama", imgSrc: "https://iili.io/F2ziUOJ.jpg", year: "2022", rating: "8.8", status: "published" },
     { title: "Kalki 2898 AD", genre: "Action, Drama", imgSrc: "https://iili.io/KXXLZ7V.jpg", year: "2024", rating: "8.5", status: "published" },
     { title: "Tiger Nageswara Rao", genre: "Dark Comedy", imgSrc: "https://iili.io/K8M02ef.jpg", year: "2023", rating: "7.8", status: "published" },
+    { title: "Ek Deewane Ki Deewaniyat", genre: "Romance", imgSrc: "https://iili.io/K6lu9ea.jpg", year: "2024", rating: "7.5", status: "published" },
+    { title: "Choked", genre: "Drama", imgSrc: "https://iili.io/K8MXjAF.jpg", year: "2020", rating: "7.2", status: "published" },
     { title: "Shershaah", genre: "Biographical War", imgSrc: "https://iili.io/F2zi8Hg.jpg", year: "2021", rating: "8.9", status: "published" },
     { title: "Drishyam 2", genre: "Thriller", imgSrc: "https://iili.io/F2zikUF.jpg", year: "2022", rating: "8.6", status: "published" },
     { title: "Jai Bhim", genre: "Legal Drama", imgSrc: "https://iili.io/F2zigDv.jpg", year: "2021", rating: "9.2", status: "published" },
-    { title: "12th Fail", genre: "Biographical Drama", imgSrc: "https://iili.io/F2ziQUX.jpg", year: "2023", rating: "9.1", status: "published" }
+    { title: "Freddy", genre: "Thriller", imgSrc: "https://iili.io/F2z1RHJ.jpg", year: "2022", rating: "7.4", status: "published" },
+    { title: "Brahmāstra: Part One – Shiva", genre: "Fantasy Adventure", imgSrc: "https://iili.io/F2zi6Vp.jpg", year: "2022", rating: "7.9", status: "published" },
+    { title: "Tanhaji: The Unsung Warrior", genre: "Historical Action", imgSrc: "https://iili.io/F2ziPiN.jpg", year: "2020", rating: "8.4", status: "published" },
+    { title: "Sita Ramam", genre: "Romantic Drama", imgSrc: "https://iili.io/F2zisfI.jpg", year: "2022", rating: "8.7", status: "published" },
+    { title: "Sirf Ek Bandaa Kaafi Hai", genre: "Courtroom Drama", imgSrc: "https://iili.io/F2ziLlt.jpg", year: "2023", rating: "8.3", status: "published" },
+    { title: "12th Fail", genre: "Biographical Drama", imgSrc: "https://iili.io/F2ziQUX.jpg", year: "2023", rating: "9.1", status: "published" },
+    { title: "Housefull 5", genre: "Upcoming Drama", imgSrc: "https://iili.io/F2I2FNp.jpg", year: "2024", rating: "N/A", status: "draft" },
+    { title: "Titanic", genre: "Disaster, Tragic Romance", imgSrc: "https://iili.io/F2InRMQ.jpg", year: "1997", rating: "7.9", status: "published" },
+    { title: "OMG", genre: "Comedy, Drama", imgSrc: "https://iili.io/F2I1CLN.jpg", year: "2012", rating: "8.1", status: "published" }
 ];
 
 let seriesData = [
     { title: "Mirzapur", genre: "Crime Thriller", imgSrc: "https://iili.io/F27Hhgt.jpg", seasons: "3", rating: "8.5", status: "published" },
     { title: "The Family Man", genre: "Spy Thriller", imgSrc: "https://iili.io/F27HyrP.jpg", seasons: "2", rating: "8.7", status: "published" },
+    { title: "Asur 2", genre: "Crime Thriller", imgSrc: "https://iili.io/F27HOes.jpg", seasons: "2", rating: "8.4", status: "published" },
     { title: "Sacred Games", genre: "Crime Thriller", imgSrc: "https://iili.io/F27HN7n.jpg", seasons: "2", rating: "8.6", status: "published" },
+    { title: "Paatal Lok", genre: "Crime Thriller", imgSrc: "https://iili.io/F27HSLl.jpg", seasons: "1", rating: "8.1", status: "published" },
+    { title: "Farzi", genre: "Crime Thriller", imgSrc: "https://iili.io/F39aGXj.jpg", seasons: "1", rating: "8.3", status: "published" },
     { title: "Scam 1992", genre: "Biographical Crime", imgSrc: "https://iili.io/F27Hr1S.jpg", seasons: "1", rating: "9.5", status: "published" },
-    { title: "Panchayat", genre: "Comedy Drama", imgSrc: "https://iili.io/F27HgB2.jpg", seasons: "3", rating: "8.9", status: "published" }
+    { title: "Panchayat", genre: "Comedy Drama", imgSrc: "https://iili.io/F27HgB2.jpg", seasons: "3", rating: "8.9", status: "published" },
+    { title: "Rocket Boys", genre: "Biographical Drama", imgSrc: "https://iili.io/F27H4r7.jpg", seasons: "2", rating: "8.8", status: "published" },
+    { title: "Made in Heaven", genre: "Drama", imgSrc: "https://iili.io/F27Hsku.jpg", seasons: "2", rating: "8.3", status: "published" },
+    { title: "Delhi Crime", genre: "Crime Drama", imgSrc: "https://iili.io/F27HLmb.jpg", seasons: "2", rating: "8.5", status: "published" },
+    { title: "Criminal Justice", genre: "Legal Drama", imgSrc: "https://iili.io/F27HZIj.jpg", seasons: "3", rating: "8.1", status: "published" },
+    { title: "Breathe", genre: "Crime Thriller", imgSrc: "https://iili.io/F27Hthx.jpg", seasons: "2", rating: "8.0", status: "published" },
+    { title: "Special OPS", genre: "Spy Thriller", imgSrc: "https://iili.io/F2YqPjt.jpg", seasons: "1", rating: "8.2", status: "published" },
+    { title: "SHE", genre: "Crime drama", imgSrc: "https://iili.io/F2YfN1f.jpg", seasons: "2", rating: "7.8", status: "published" }
 ];
 
 let usersData = [
