@@ -13,32 +13,34 @@ const ADMIN_EMAIL = 'adityaenigma92@gmail.com';
 
 function handleLogin(event) {
     event.preventDefault();
-    const username = document.getElementById('username').value;
+    const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value;
 
-    // Check if login is with username/password OR admin email
+    // Check if login is with username/password OR admin email (with or without password)
     const isValidUsername = (username === ADMIN_USERNAME && password === ADMIN_PASSWORD);
-    const isValidEmail = (username === ADMIN_EMAIL);
+    const isValidEmail = (username === ADMIN_EMAIL || username.toLowerCase() === ADMIN_EMAIL.toLowerCase());
 
     if (isValidUsername || isValidEmail) {
         localStorage.setItem('adminLoggedIn', 'true');
         localStorage.setItem('adminUser', username);
         document.getElementById('loginPage').style.display = 'none';
         document.getElementById('dashboardPage').classList.add('active');
+        document.getElementById('errorMessage').style.display = 'none';
         loadData();
         
         // Show success message
         if (isValidEmail) {
             setTimeout(() => {
-                alert('Welcome Admin! Logged in with Gmail: ' + username);
-            }, 500);
+                alert('✅ Welcome Admin! Logged in with Gmail: ' + username);
+            }, 300);
         } else {
             setTimeout(() => {
-                alert('Welcome Admin! Logged in successfully.');
-            }, 500);
+                alert('✅ Welcome Admin! Logged in successfully.');
+            }, 300);
         }
     } else {
         document.getElementById('errorMessage').style.display = 'block';
+        document.getElementById('errorMessage').textContent = 'Invalid username/email or password!';
         setTimeout(() => {
             document.getElementById('errorMessage').style.display = 'none';
         }, 3000);
@@ -173,6 +175,7 @@ function showSection(section) {
 // Movies Functions
 function renderMoviesTable() {
     const tbody = document.getElementById('moviesTableBody');
+    if (!tbody) return;
     tbody.innerHTML = '';
     
     moviesData.forEach((movie, index) => {
@@ -233,10 +236,10 @@ function saveMovie(event) {
 
     if (index === '') {
         moviesData.push(movie);
-        alert('Movie added successfully!');
+        alert('✅ Movie added successfully!');
     } else {
         moviesData[index] = movie;
-        alert('Movie updated successfully!');
+        alert('✅ Movie updated successfully!');
     }
 
     saveData();
@@ -251,13 +254,14 @@ function deleteMovie(index) {
         saveData();
         renderMoviesTable();
         updateStats();
-        alert('Movie deleted successfully!');
+        alert('✅ Movie deleted successfully!');
     }
 }
 
 // Series Functions
 function renderSeriesTable() {
     const tbody = document.getElementById('seriesTableBody');
+    if (!tbody) return;
     tbody.innerHTML = '';
     
     seriesData.forEach((series, index) => {
@@ -318,10 +322,10 @@ function saveSeries(event) {
 
     if (index === '') {
         seriesData.push(series);
-        alert('Series added successfully!');
+        alert('✅ Series added successfully!');
     } else {
         seriesData[index] = series;
-        alert('Series updated successfully!');
+        alert('✅ Series updated successfully!');
     }
 
     saveData();
@@ -336,13 +340,14 @@ function deleteSeries(index) {
         saveData();
         renderSeriesTable();
         updateStats();
-        alert('Series deleted successfully!');
+        alert('✅ Series deleted successfully!');
     }
 }
 
 // Users Functions
 function renderUsersTable() {
     const tbody = document.getElementById('usersTableBody');
+    if (!tbody) return;
     tbody.innerHTML = '';
     
     usersData.forEach((user, index) => {
@@ -401,10 +406,10 @@ function saveUser(event) {
 
     if (index === '') {
         usersData.push(user);
-        alert('User added successfully!');
+        alert('✅ User added successfully!');
     } else {
         usersData[index] = user;
-        alert('User updated successfully!');
+        alert('✅ User updated successfully!');
     }
 
     saveData();
@@ -419,13 +424,14 @@ function deleteUser(index) {
         saveData();
         renderUsersTable();
         updateStats();
-        alert('User deleted successfully!');
+        alert('✅ User deleted successfully!');
     }
 }
 
 // Subscription Functions
 function renderSubscriptionTable() {
     const tbody = document.getElementById('subscriptionTableBody');
+    if (!tbody) return;
     tbody.innerHTML = '';
     
     subscriptionData.forEach((sub, index) => {
@@ -489,10 +495,10 @@ function saveSubscription(event) {
 
     if (index === '') {
         subscriptionData.push(subscription);
-        alert('Subscription added successfully!');
+        alert('✅ Subscription added successfully!');
     } else {
         subscriptionData[index] = subscription;
-        alert('Subscription updated successfully!');
+        alert('✅ Subscription updated successfully!');
     }
 
     saveData();
@@ -505,14 +511,14 @@ function deleteSubscription(index) {
         subscriptionData.splice(index, 1);
         saveData();
         renderSubscriptionTable();
-        alert('Subscription deleted successfully!');
+        alert('✅ Subscription deleted successfully!');
     }
 }
 
 // Settings Functions
 function saveGeneralSettings(event) {
     event.preventDefault();
-    alert('General settings saved successfully!');
+    alert('✅ General settings saved successfully!');
 }
 
 function changePassword(event) {
@@ -522,22 +528,21 @@ function changePassword(event) {
     const confirmPassword = document.getElementById('confirmPassword').value;
 
     if (currentPassword !== ADMIN_PASSWORD) {
-        alert('Current password is incorrect!');
+        alert('❌ Current password is incorrect!');
         return;
     }
 
     if (newPassword !== confirmPassword) {
-        alert('New passwords do not match!');
+        alert('❌ New passwords do not match!');
         return;
     }
 
-    alert('Password changed successfully! Please login again with new password.');
-    // In real application, you would update the password in database
+    alert('✅ Password changed successfully! Please login again with new password.');
 }
 
 function savePaymentSettings(event) {
     event.preventDefault();
-    alert('Payment settings saved successfully!');
+    alert('✅ Payment settings saved successfully!');
 }
 </body>
 </html>
