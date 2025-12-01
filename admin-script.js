@@ -11,40 +11,78 @@ const ADMIN_USERNAME = 'hubbymovies007';
 const ADMIN_PASSWORD = 'hubby555';
 const ADMIN_EMAIL = 'adityaenigma92@gmail.com';
 
+// Handle login form submission
+document.addEventListener('DOMContentLoaded', function() {
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    }
+});
+
 function handleLogin(event) {
     event.preventDefault();
+    
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value;
+    const errorMsg = document.getElementById('errorMessage');
+    const successMsg = document.getElementById('successMessage');
 
-    // Check if login is with username/password OR admin email (with or without password)
+    // Hide previous messages
+    errorMsg.style.display = 'none';
+    successMsg.style.display = 'none';
+
+    // Validate inputs
+    if (!username || !password) {
+        showError('Please fill in all fields!');
+        return false;
+    }
+
+    // Check if login is with username/password OR admin email
     const isValidUsername = (username === ADMIN_USERNAME && password === ADMIN_PASSWORD);
-    const isValidEmail = (username === ADMIN_EMAIL || username.toLowerCase() === ADMIN_EMAIL.toLowerCase());
+    const isValidEmail = (username.toLowerCase() === ADMIN_EMAIL.toLowerCase());
 
     if (isValidUsername || isValidEmail) {
+        // Show success message
+        showSuccess('✅ Successfully logged in! Redirecting to admin panel...');
+        
+        // Save login state
         localStorage.setItem('adminLoggedIn', 'true');
         localStorage.setItem('adminUser', username);
-        document.getElementById('loginPage').style.display = 'none';
-        document.getElementById('dashboardPage').classList.add('active');
-        document.getElementById('errorMessage').style.display = 'none';
-        loadData();
         
-        // Show success message
-        if (isValidEmail) {
-            setTimeout(() => {
-                alert('✅ Welcome Admin! Logged in with Gmail: ' + username);
-            }, 300);
-        } else {
-            setTimeout(() => {
-                alert('✅ Welcome Admin! Logged in successfully.');
-            }, 300);
-        }
-    } else {
-        document.getElementById('errorMessage').style.display = 'block';
-        document.getElementById('errorMessage').textContent = 'Invalid username/email or password!';
+        // Redirect to dashboard after 1 second
         setTimeout(() => {
-            document.getElementById('errorMessage').style.display = 'none';
-        }, 3000);
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('dashboardPage').classList.add('active');
+            loadData();
+        }, 1000);
+        
+        return false;
+    } else {
+        // Show error with specific details
+        if (username !== ADMIN_USERNAME && username.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+            showError('❌ Invalid username/email! Please check your credentials.');
+        } else {
+            showError('❌ Invalid password! Please try again.');
+        }
+        return false;
     }
+}
+
+function showError(message) {
+    const errorMsg = document.getElementById('errorMessage');
+    errorMsg.textContent = message;
+    errorMsg.style.display = 'block';
+    
+    // Auto hide after 5 seconds
+    setTimeout(() => {
+        errorMsg.style.display = 'none';
+    }, 5000);
+}
+
+function showSuccess(message) {
+    const successMsg = document.getElementById('successMessage');
+    successMsg.textContent = message;
+    successMsg.style.display = 'block';
 }
 
 function logout() {
