@@ -6,112 +6,9 @@
     <title>GitHub Pages Site</title>
 </head>
 <body>
-// Authentication
-const ADMIN_USERNAME = 'hubbymovies007';
-const ADMIN_PASSWORD = 'hubby555';
-const ADMIN_EMAIL = 'adityaenigma92@gmail.com';
-
-// Handle login form submission
-document.addEventListener('DOMContentLoaded', function() {
-    const loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-        loginForm.addEventListener('submit', handleLogin);
-    }
-});
-
-function handleLogin(event) {
-    event.preventDefault();
-    
-    const username = document.getElementById('username').value.trim();
-    const password = document.getElementById('password').value;
-    const errorMsg = document.getElementById('errorMessage');
-    const successMsg = document.getElementById('successMessage');
-
-    // Hide previous messages
-    errorMsg.style.display = 'none';
-    successMsg.style.display = 'none';
-
-    // Validate inputs
-    if (!username || !password) {
-        showError('Please fill in all fields!');
-        return false;
-    }
-
-    // Check if login is with username/password OR admin email
-    const isValidUsername = (username === ADMIN_USERNAME && password === ADMIN_PASSWORD);
-    const isValidEmail = (username.toLowerCase() === ADMIN_EMAIL.toLowerCase());
-
-    if (isValidUsername || isValidEmail) {
-        // Show success message
-        showSuccess('✅ Successfully logged in! Redirecting to admin panel...');
-        
-        // Save login state
-        localStorage.setItem('adminLoggedIn', 'true');
-        localStorage.setItem('adminUser', username);
-        
-        // Redirect to dashboard after 1 second
-        setTimeout(() => {
-            document.getElementById('loginPage').style.display = 'none';
-            document.getElementById('dashboardPage').classList.add('active');
-            loadData();
-        }, 1000);
-        
-        return false;
-    } else {
-        // Show error with specific details
-        if (username !== ADMIN_USERNAME && username.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
-            showError('❌ Invalid username/email! Please check your credentials.');
-        } else {
-            showError('❌ Invalid password! Please try again.');
-        }
-        return false;
-    }
-}
-
-function showError(message) {
-    const errorMsg = document.getElementById('errorMessage');
-    errorMsg.textContent = message;
-    errorMsg.style.display = 'block';
-    
-    // Auto hide after 5 seconds
-    setTimeout(() => {
-        errorMsg.style.display = 'none';
-    }, 5000);
-}
-
-function showSuccess(message) {
-    const successMsg = document.getElementById('successMessage');
-    successMsg.textContent = message;
-    successMsg.style.display = 'block';
-}
-
-function logout() {
-    if (confirm('Are you sure you want to logout?')) {
-        localStorage.removeItem('adminLoggedIn');
-        localStorage.removeItem('adminUser');
-        location.reload();
-    }
-}
-
-// Check if already logged in
+// Load data on page load
 window.onload = function() {
-    if (localStorage.getItem('adminLoggedIn') === 'true') {
-        document.getElementById('loginPage').style.display = 'none';
-        document.getElementById('dashboardPage').classList.add('active');
-        loadData();
-        
-        // Update admin profile display
-        const adminUser = localStorage.getItem('adminUser');
-        if (adminUser) {
-            const displayName = adminUser.includes('@') ? 'Admin (Gmail)' : 'Admin';
-            const profileElements = document.querySelectorAll('.admin-profile span');
-            profileElements.forEach(el => {
-                if (el.textContent === 'Admin') {
-                    el.textContent = displayName;
-                }
-            });
-        }
-    }
+    loadData();
 };
 
 // Initial Data
@@ -557,25 +454,6 @@ function deleteSubscription(index) {
 function saveGeneralSettings(event) {
     event.preventDefault();
     alert('✅ General settings saved successfully!');
-}
-
-function changePassword(event) {
-    event.preventDefault();
-    const currentPassword = document.getElementById('currentPassword').value;
-    const newPassword = document.getElementById('newPassword').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-
-    if (currentPassword !== ADMIN_PASSWORD) {
-        alert('❌ Current password is incorrect!');
-        return;
-    }
-
-    if (newPassword !== confirmPassword) {
-        alert('❌ New passwords do not match!');
-        return;
-    }
-
-    alert('✅ Password changed successfully! Please login again with new password.');
 }
 
 function savePaymentSettings(event) {
