@@ -4,592 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CineHub Admin Dashboard</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg-dark: #0a0e27;
-            --bg-darker: #060918;
-            --sidebar-bg: rgba(10, 14, 39, 0.95);
-            --card-bg: rgba(15, 23, 42, 0.8);
-            --neon-blue: #00d4ff;
-            --neon-purple: #b537f2;
-            --neon-pink: #ff006e;
-            --neon-green: #00ff88;
-            --text-primary: #ffffff;
-            --text-secondary: #94a3b8;
-            --border-color: rgba(0, 212, 255, 0.2);
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 50%, #0f1729 100%);
-            color: var(--text-primary);
-            min-height: 100vh;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 280px;
-            height: 100vh;
-            background: var(--sidebar-bg);
-            backdrop-filter: blur(10px);
-            border-right: 1px solid var(--border-color);
-            padding: 2rem 0;
-            z-index: 1000;
-            overflow-y: auto;
-        }
-
-        .logo {
-            padding: 0 2rem;
-            margin-bottom: 3rem;
-            font-size: 1.8rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .nav-menu {
-            list-style: none;
-        }
-
-        .nav-item {
-            margin: 0.5rem 1rem;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem 1.5rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            border-radius: 12px;
-            transition: all 0.3s;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(181, 55, 242, 0.1));
-            color: var(--neon-blue);
-            transform: translateX(5px);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
-        }
-
-        .nav-icon {
-            font-size: 1.3rem;
-        }
-
-        /* Top Bar */
-        .topbar {
-            position: fixed;
-            top: 0;
-            left: 280px;
-            right: 0;
-            height: 80px;
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 2rem;
-            z-index: 999;
-        }
-
-        .search-bar {
-            flex: 1;
-            max-width: 500px;
-            position: relative;
-        }
-
-        .search-bar input {
-            width: 100%;
-            padding: 0.8rem 1.5rem 0.8rem 3rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            border-radius: 50px;
-            color: var(--text-primary);
-            font-size: 0.95rem;
-            outline: none;
-            transition: all 0.3s;
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 1.2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-        }
-
-        .topbar-actions {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .admin-profile {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            cursor: pointer;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            transition: all 0.3s;
-        }
-
-        .admin-avatar {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-
-        /* Main Content */
-        .main-content {
-            margin-left: 280px;
-            margin-top: 80px;
-            padding: 2rem;
-            min-height: calc(100vh - 80px);
-        }
-
-        .content-section {
-            display: none;
-        }
-
-        .content-section.active {
-            display: block;
-        }
-
-        /* Stats Cards */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 1.5rem;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
-        }
-
-        .stat-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .stat-title {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .stat-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-
-        .stat-value {
-            font-size: 2rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-change {
-            font-size: 0.85rem;
-            color: var(--neon-green);
-        }
-
-        /* Progress Bar */
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-top: 0.5rem;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
-            border-radius: 10px;
-            transition: width 0.3s;
-        }
-
-        /* Charts */
-        .charts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .chart-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 1.5rem;
-        }
-
-        .chart-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 1.5rem;
-        }
-
-        .chart-placeholder {
-            height: 250px;
-            background: rgba(0, 212, 255, 0.05);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            border: 1px dashed var(--border-color);
-        }
-
-        /* Table */
-        .table-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .table-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .table-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-        .btn {
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-            color: white;
-            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.5);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-        }
-
-        .movies-table {
-            width: 100%;
-            border-collapse: collapse;
-            overflow-x: auto;
-        }
-
-        .movies-table thead {
-            background: rgba(0, 212, 255, 0.05);
-        }
-
-        .movies-table th {
-            padding: 1rem;
-            text-align: left;
-            color: var(--neon-blue);
-            font-weight: 600;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .movies-table td {
-            padding: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .movies-table tr:hover {
-            background: rgba(0, 212, 255, 0.03);
-        }
-
-        .movie-thumb {
-            width: 60px;
-            height: 90px;
-            border-radius: 8px;
-            object-fit: cover;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .status-badge {
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .status-published {
-            background: rgba(0, 255, 136, 0.1);
-            color: var(--neon-green);
-            border: 1px solid var(--neon-green);
-        }
-
-        .status-draft {
-            background: rgba(255, 0, 110, 0.1);
-            color: var(--neon-pink);
-            border: 1px solid var(--neon-pink);
-        }
-
-        .status-active {
-            background: rgba(0, 255, 136, 0.1);
-            color: var(--neon-green);
-            border: 1px solid var(--neon-green);
-        }
-
-        .status-inactive {
-            background: rgba(255, 0, 110, 0.1);
-            color: var(--neon-pink);
-            border: 1px solid var(--neon-pink);
-        }
-
-        .action-btns {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .btn-icon {
-            width: 35px;
-            height: 35px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .btn-edit {
-            background: rgba(0, 212, 255, 0.1);
-            color: var(--neon-blue);
-        }
-
-        .btn-edit:hover {
-            background: var(--neon-blue);
-            color: white;
-        }
-
-        .btn-delete {
-            background: rgba(255, 0, 110, 0.1);
-            color: var(--neon-pink);
-        }
-
-        .btn-delete:hover {
-            background: var(--neon-pink);
-            color: white;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 2rem;
-            max-width: 600px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .close-btn {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background: rgba(255, 0, 110, 0.1);
-            border: none;
-            color: var(--neon-pink);
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-        }
-
-        .close-btn:hover {
-            background: var(--neon-pink);
-            color: white;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            color: var(--text-primary);
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s;
-        }
-
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            border-color: var(--neon-blue);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
-        }
-
-        /* Settings Cards */
-        .settings-grid {
-            display: grid;
-            gap: 1.5rem;
-        }
-
-        .setting-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 2rem;
-        }
-
-        .setting-card h3 {
-            color: var(--neon-blue);
-            margin-bottom: 1.5rem;
-            font-size: 1.3rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .topbar {
-                left: 0;
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .search-bar {
-                max-width: 150px;
-            }
-
-            .charts-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="admin-styles.css">
 </head>
 <body>
     <!-- Sidebar -->
@@ -651,9 +66,10 @@
     <header class="topbar">
         <div class="search-bar">
             <span class="search-icon">🔍</span>
-            <input type="text" placeholder="Search...">
+            <input type="text" placeholder="Search anything...">
         </div>
         <div class="topbar-actions">
+            <div class="notification-icon">🔔</div>
             <div class="admin-profile">
                 <div class="admin-avatar">👤</div>
                 <span>Admin</span>
@@ -665,507 +81,190 @@
     <main class="main-content">
         <!-- Dashboard Section -->
         <div id="dashboardSection" class="content-section active">
+            <h1 class="page-title">📊 Dashboard Overview</h1>
+            
+            <!-- Top Stats Cards -->
             <div class="stats-grid">
-                <div class="stat-card">
+                <div class="stat-card glass-effect">
                     <div class="stat-header">
                         <div>
                             <div class="stat-title">Total Movies</div>
                             <div class="stat-value" id="totalMovies">0</div>
-                            <div class="stat-change">↑ Updated</div>
+                            <div class="stat-change positive">↑ 12% from last month</div>
                         </div>
-                        <div class="stat-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--neon-blue);">🎬</div>
+                        <div class="stat-icon blue">🎬</div>
                     </div>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card glass-effect">
                     <div class="stat-header">
                         <div>
                             <div class="stat-title">Total Web Series</div>
                             <div class="stat-value" id="totalSeries">0</div>
-                            <div class="stat-change">↑ Updated</div>
+                            <div class="stat-change positive">↑ 8% from last month</div>
                         </div>
-                        <div class="stat-icon" style="background: rgba(181, 55, 242, 0.1); color: var(--neon-purple);">📺</div>
+                        <div class="stat-icon purple">📺</div>
                     </div>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card glass-effect">
                     <div class="stat-header">
                         <div>
                             <div class="stat-title">Total Users</div>
                             <div class="stat-value" id="totalUsers">0</div>
-                            <div class="stat-change">Registered Users</div>
+                            <div class="stat-change positive">↑ 15% from yesterday</div>
                         </div>
-                        <div class="stat-icon" style="background: rgba(0, 255, 136, 0.1); color: var(--neon-green);">👥</div>
+                        <div class="stat-icon green">👥</div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Earnings Section -->
-        <div id="earningsSection" class="content-section">
-            <h2 style="color: var(--neon-blue); margin-bottom: 2rem; font-size: 2rem;">💰 Earnings Dashboard</h2>
-            
-            <div class="stats-grid">
-                <div class="stat-card">
+                <div class="stat-card glass-effect">
                     <div class="stat-header">
                         <div>
-                            <div class="stat-title">Total Movies</div>
-                            <div class="stat-value">17</div>
-                            <div class="stat-change">↑ 12% from last month</div>
+                            <div class="stat-title">Daily Earnings</div>
+                            <div class="stat-value">₹2,450</div>
+                            <div class="stat-change positive">↑ ₹450 today</div>
                         </div>
-                        <div class="stat-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--neon-blue);">🎬</div>
+                        <div class="stat-icon pink">💰</div>
                     </div>
                 </div>
-
-                <div class="stat-card">
+                <div class="stat-card glass-effect">
                     <div class="stat-header">
                         <div>
-                            <div class="stat-title">Total Users</div>
-                            <div class="stat-value">45.2K</div>
-                            <div class="stat-change">↑ 8% from last month</div>
+                            <div class="stat-title">Monthly Earnings</div>
+                            <div class="stat-value">₹69,500</div>
+                            <div class="stat-change positive">↑ 23% this month</div>
                         </div>
-                        <div class="stat-icon" style="background: rgba(181, 55, 242, 0.1); color: var(--neon-purple);">👥</div>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-header">
-                        <div>
-                            <div class="stat-title">Daily Active Users</div>
-                            <div class="stat-value">12.8K</div>
-                            <div class="stat-change">↑ 15% from yesterday</div>
-                        </div>
-                        <div class="stat-icon" style="background: rgba(0, 255, 136, 0.1); color: var(--neon-green);">📊</div>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-header">
-                        <div>
-                            <div class="stat-title">Monthly Revenue</div>
-                            <div class="stat-value">₹69.5K</div>
-                            <div class="stat-change">↑ 23% from last month</div>
-                        </div>
-                        <div class="stat-icon" style="background: rgba(255, 0, 110, 0.1); color: var(--neon-pink);">💰</div>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-header">
-                        <div>
-                            <div class="stat-title">Total Downloads</div>
-                            <div class="stat-value">156K</div>
-                            <div class="stat-change">↑ 18% from last month</div>
-                        </div>
-                        <div class="stat-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--neon-blue);">⬇️</div>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-header">
-                        <div>
-                            <div class="stat-title">Storage Used</div>
-                            <div class="stat-value">2.4TB</div>
-                            <div class="stat-change">of 15TB total</div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 16%;"></div>
-                            </div>
-                        </div>
-                        <div class="stat-icon" style="background: rgba(181, 55, 242, 0.1); color: var(--neon-purple);">💾</div>
+                        <div class="stat-icon orange">📈</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Charts -->
+            <!-- Analytics Charts -->
             <div class="charts-grid">
-                <div class="chart-card">
-                    <div class="chart-title">Daily Movie Views</div>
-                    <div class="chart-placeholder">📈 Line Chart: Daily Views Trend</div>
+                <div class="chart-card glass-effect">
+                    <div class="chart-header">
+                        <h3>📈 User Growth</h3>
+                        <select class="chart-filter">
+                            <option>Last 7 Days</option>
+                            <option>Last 30 Days</option>
+                            <option>Last 3 Months</option>
+                        </select>
+                    </div>
+                    <div class="chart-placeholder">
+                        <canvas id="userGrowthChart"></canvas>
+                        <div class="chart-mock">Line Chart: User Growth Trend</div>
+                    </div>
                 </div>
 
-                <div class="chart-card">
-                    <div class="chart-title">Category Performance</div>
-                    <div class="chart-placeholder">📊 Bar Chart: Genre-wise Performance</div>
+                <div class="chart-card glass-effect">
+                    <div class="chart-header">
+                        <h3>🎬 Movies Upload Trend</h3>
+                        <select class="chart-filter">
+                            <option>This Month</option>
+                            <option>Last Month</option>
+                            <option>This Year</option>
+                        </select>
+                    </div>
+                    <div class="chart-placeholder">
+                        <canvas id="moviesUploadChart"></canvas>
+                        <div class="chart-mock">Bar Chart: Movies Upload by Category</div>
+                    </div>
                 </div>
 
-                <div class="chart-card">
-                    <div class="chart-title">User Subscription Types</div>
-                    <div class="chart-placeholder">🥧 Pie Chart: Free / Premium / VIP</div>
+                <div class="chart-card glass-effect full-width">
+                    <div class="chart-header">
+                        <h3>💰 Earnings Overview</h3>
+                        <select class="chart-filter">
+                            <option>Last 6 Months</option>
+                            <option>This Year</option>
+                            <option>All Time</option>
+                        </select>
+                    </div>
+                    <div class="chart-placeholder">
+                        <canvas id="earningsChart"></canvas>
+                        <div class="chart-mock">Area Chart: Monthly Earnings Breakdown</div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Movies Section -->
-        <div id="moviesSection" class="content-section">
-            <div class="table-card">
+            <!-- Recent Activity Table -->
+            <div class="table-card glass-effect">
                 <div class="table-header">
-                    <div class="table-title">🎬 Movies Management</div>
-                    <button class="btn btn-primary" onclick="openAddMovieModal()">➕ Add New Movie</button>
+                    <h3>📋 Recent Activity</h3>
+                    <button class="btn btn-secondary">View All</button>
                 </div>
-                <div style="overflow-x: auto;">
-                    <table class="movies-table">
+                <div class="table-responsive">
+                    <table class="data-table">
                         <thead>
                             <tr>
-                                <th>Thumbnail</th>
                                 <th>Movie Name</th>
-                                <th>Genre</th>
-                                <th>Year</th>
-                                <th>Rating</th>
+                                <th>Uploaded By</th>
+                                <th>Date</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody id="moviesTableBody"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Web Series Section -->
-        <div id="webseriesSection" class="content-section">
-            <div class="table-card">
-                <div class="table-header">
-                    <div class="table-title">📺 Web Series Management</div>
-                    <button class="btn btn-primary" onclick="openAddSeriesModal()">➕ Add New Series</button>
-                </div>
-                <div style="overflow-x: auto;">
-                    <table class="movies-table">
-                        <thead>
+                        <tbody id="recentActivityTable">
                             <tr>
-                                <th>Thumbnail</th>
-                                <th>Series Name</th>
-                                <th>Genre</th>
-                                <th>Seasons</th>
-                                <th>Rating</th>
-                                <th>Status</th>
-                                <th>Actions</th>
+                                <td><strong>Kalki 2898 AD</strong></td>
+                                <td>Admin</td>
+                                <td>Dec 01, 2024</td>
+                                <td><span class="badge badge-success">Published</span></td>
+                                <td><button class="btn-icon">👁️</button></td>
                             </tr>
-                        </thead>
-                        <tbody id="seriesTableBody"></tbody>
+                            <tr>
+                                <td><strong>12th Fail</strong></td>
+                                <td>Admin</td>
+                                <td>Nov 30, 2024</td>
+                                <td><span class="badge badge-success">Published</span></td>
+                                <td><button class="btn-icon">👁️</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Housefull 5</strong></td>
+                                <td>Admin</td>
+                                <td>Nov 29, 2024</td>
+                                <td><span class="badge badge-warning">Draft</span></td>
+                                <td><button class="btn-icon">👁️</button></td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
-        </div>
 
-        <!-- Upload Section -->
-        <div id="uploadSection" class="content-section">
-            <div class="table-card">
-                <div class="table-header">
-                    <div class="table-title">⬆️ Upload New Content</div>
-                </div>
-                <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
-                    <button class="btn btn-primary" onclick="openAddMovieModal()" style="flex: 1; min-width: 200px; padding: 2rem;">
-                        🎬 Upload Movie
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <h3>⚡ Quick Actions</h3>
+                <div class="action-buttons">
+                    <button class="action-btn blue" onclick="showSection('upload')">
+                        <span class="action-icon">🎬</span>
+                        <span>Upload Movie</span>
                     </button>
-                    <button class="btn btn-primary" onclick="openAddSeriesModal()" style="flex: 1; min-width: 200px; padding: 2rem;">
-                        📺 Upload Web Series
+                    <button class="action-btn purple" onclick="showSection('upload')">
+                        <span class="action-icon">📺</span>
+                        <span>Upload Web Series</span>
+                    </button>
+                    <button class="action-btn green" onclick="showSection('subscription')">
+                        <span class="action-icon">💳</span>
+                        <span>Create Plan</span>
+                    </button>
+                    <button class="action-btn pink" onclick="showSection('users')">
+                        <span class="action-icon">👥</span>
+                        <span>Manage Users</span>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Users Section -->
-        <div id="usersSection" class="content-section">
-            <div class="table-card">
-                <div class="table-header">
-                    <div class="table-title">👥 Users Management</div>
-                    <button class="btn btn-primary" onclick="openAddUserModal()">➕ Add New User</button>
-                </div>
-                <div style="overflow-x: auto;">
-                    <table class="movies-table">
-                        <thead>
-                            <tr>
-                                <th>User ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Signup Date</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="usersTableBody"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Subscription Section -->
-        <div id="subscriptionSection" class="content-section">
-            <div class="table-card">
-                <div class="table-header">
-                    <div class="table-title">💳 Subscription Management</div>
-                    <button class="btn btn-primary" onclick="openAddSubscriptionModal()">➕ Add Subscription</button>
-                </div>
-                <div style="overflow-x: auto;">
-                    <table class="movies-table">
-                        <thead>
-                            <tr>
-                                <th>User Name</th>
-                                <th>Email</th>
-                                <th>Plan Type</th>
-                                <th>Amount</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="subscriptionTableBody"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Settings Section -->
-        <div id="settingsSection" class="content-section">
-            <h2 style="color: var(--neon-blue); margin-bottom: 2rem; font-size: 2rem;">⚙️ Settings</h2>
-            
-            <div class="settings-grid">
-                <!-- General Settings -->
-                <div class="setting-card">
-                    <h3>🌐 General Settings</h3>
-                    <form onsubmit="saveGeneralSettings(event)">
-                        <div class="form-group">
-                            <label>Website Name</label>
-                            <input type="text" id="websiteName" value="CineHub" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Website Description</label>
-                            <textarea id="websiteDesc" rows="3" required>Your ultimate destination for movies and web series</textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Contact Email</label>
-                            <input type="email" id="contactEmail" value="info@cinehub.com" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </form>
-                </div>
-
-                <!-- Payment Settings -->
-                <div class="setting-card">
-                    <h3>💰 Payment Settings</h3>
-                    <form onsubmit="savePaymentSettings(event)">
-                        <div class="form-group">
-                            <label>Currency</label>
-                            <select id="currency">
-                                <option value="INR">₹ INR - Indian Rupee</option>
-                                <option value="USD">$ USD - US Dollar</option>
-                                <option value="EUR">€ EUR - Euro</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Free Plan Price</label>
-                            <input type="number" id="freePlanPrice" value="0" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Premium Plan Price</label>
-                            <input type="number" id="premiumPlanPrice" value="299" required>
-                        </div>
-                        <div class="form-group">
-                            <label>VIP Plan Price</label>
-                            <input type="number" id="vipPlanPrice" value="599" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </form>
-                </div>
-
-                <!-- Storage Settings -->
-                <div class="setting-card">
-                    <h3>💾 Storage Settings</h3>
-                    <div class="form-group">
-                        <label>Total Storage Capacity</label>
-                        <input type="text" value="15 TB" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label>Used Storage</label>
-                        <input type="text" value="2.4 TB (16%)" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label>Available Storage</label>
-                        <input type="text" value="12.6 TB" readonly>
-                    </div>
-                    <div class="progress-bar" style="height: 20px;">
-                        <div class="progress-fill" style="width: 16%;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Other sections will be loaded from admin-sections.js -->
+        <div id="earningsSection" class="content-section"></div>
+        <div id="moviesSection" class="content-section"></div>
+        <div id="webseriesSection" class="content-section"></div>
+        <div id="uploadSection" class="content-section"></div>
+        <div id="usersSection" class="content-section"></div>
+        <div id="subscriptionSection" class="content-section"></div>
+        <div id="settingsSection" class="content-section"></div>
     </main>
 
-    <!-- Movie Modal -->
-    <div id="movieModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="movieModalTitle">Add New Movie</h2>
-                <button class="close-btn" onclick="closeMovieModal()">✕</button>
-            </div>
-            <form id="movieForm" onsubmit="saveMovie(event)">
-                <input type="hidden" id="movieIndex">
-                <div class="form-group">
-                    <label>Movie Title *</label>
-                    <input type="text" id="movieTitle" required>
-                </div>
-                <div class="form-group">
-                    <label>Genre *</label>
-                    <input type="text" id="movieGenre" required placeholder="e.g., Action, Drama">
-                </div>
-                <div class="form-group">
-                    <label>Image URL *</label>
-                    <input type="url" id="movieImage" required placeholder="https://...">
-                </div>
-                <div class="form-group">
-                    <label>Release Year *</label>
-                    <input type="number" id="movieYear" required min="1900" max="2030">
-                </div>
-                <div class="form-group">
-                    <label>Rating *</label>
-                    <input type="number" id="movieRating" required step="0.1" min="0" max="10">
-                </div>
-                <div class="form-group">
-                    <label>Status *</label>
-                    <select id="movieStatus">
-                        <option value="published">Published</option>
-                        <option value="draft">Draft</option>
-                    </select>
-                </div>
-                <div style="display: flex; gap: 1rem;">
-                    <button type="submit" class="btn btn-primary" style="flex: 1;">Save Movie</button>
-                    <button type="button" class="btn btn-secondary" onclick="closeMovieModal()">Cancel</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Series Modal -->
-    <div id="seriesModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="seriesModalTitle">Add New Series</h2>
-                <button class="close-btn" onclick="closeSeriesModal()">✕</button>
-            </div>
-            <form id="seriesForm" onsubmit="saveSeries(event)">
-                <input type="hidden" id="seriesIndex">
-                <div class="form-group">
-                    <label>Series Title *</label>
-                    <input type="text" id="seriesTitle" required>
-                </div>
-                <div class="form-group">
-                    <label>Genre *</label>
-                    <input type="text" id="seriesGenre" required>
-                </div>
-                <div class="form-group">
-                    <label>Image URL *</label>
-                    <input type="url" id="seriesImage" required>
-                </div>
-                <div class="form-group">
-                    <label>Seasons *</label>
-                    <input type="number" id="seriesSeasons" required min="1">
-                </div>
-                <div class="form-group">
-                    <label>Rating *</label>
-                    <input type="number" id="seriesRating" required step="0.1" min="0" max="10">
-                </div>
-                <div class="form-group">
-                    <label>Status *</label>
-                    <select id="seriesStatus">
-                        <option value="published">Published</option>
-                        <option value="draft">Draft</option>
-                    </select>
-                </div>
-                <div style="display: flex; gap: 1rem;">
-                    <button type="submit" class="btn btn-primary" style="flex: 1;">Save Series</button>
-                    <button type="button" class="btn btn-secondary" onclick="closeSeriesModal()">Cancel</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- User Modal -->
-    <div id="userModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="userModalTitle">Add New User</h2>
-                <button class="close-btn" onclick="closeUserModal()">✕</button>
-            </div>
-            <form id="userForm" onsubmit="saveUser(event)">
-                <input type="hidden" id="userIndex">
-                <div class="form-group">
-                    <label>Full Name *</label>
-                    <input type="text" id="userName" required>
-                </div>
-                <div class="form-group">
-                    <label>Email *</label>
-                    <input type="email" id="userEmail" required>
-                </div>
-                <div class="form-group">
-                    <label>Phone *</label>
-                    <input type="tel" id="userPhone" required>
-                </div>
-                <div class="form-group">
-                    <label>Status *</label>
-                    <select id="userStatus">
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
-                    </select>
-                </div>
-                <div style="display: flex; gap: 1rem;">
-                    <button type="submit" class="btn btn-primary" style="flex: 1;">Save User</button>
-                    <button type="button" class="btn btn-secondary" onclick="closeUserModal()">Cancel</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Subscription Modal -->
-    <div id="subscriptionModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="subscriptionModalTitle">Add Subscription</h2>
-                <button class="close-btn" onclick="closeSubscriptionModal()">✕</button>
-            </div>
-            <form id="subscriptionForm" onsubmit="saveSubscription(event)">
-                <input type="hidden" id="subscriptionIndex">
-                <div class="form-group">
-                    <label>User Name *</label>
-                    <input type="text" id="subUserName" required>
-                </div>
-                <div class="form-group">
-                    <label>Email *</label>
-                    <input type="email" id="subEmail" required>
-                </div>
-                <div class="form-group">
-                    <label>Plan Type *</label>
-                    <select id="subPlanType">
-                        <option value="Free">Free</option>
-                        <option value="Premium">Premium</option>
-                        <option value="VIP">VIP</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Amount *</label>
-                    <input type="number" id="subAmount" required>
-                </div>
-                <div class="form-group">
-                    <label>Start Date *</label>
-                    <input type="date" id="subStartDate" required>
-                </div>
-                <div class="form-group">
-                    <label>End Date *</label>
-                    <input type="date" id="subEndDate" required>
-                </div>
-                <div class="form-group">
-                    <label>Status *</label>
-                    <select id="subStatus">
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
-                    </select>
-                </div>
-                <div style="display: flex; gap: 1rem;">
-                    <button type="submit" class="btn btn-primary" style="flex: 1;">Save Subscription</button>
-                    <button type="button" class="btn btn-secondary" onclick="closeSubscriptionModal()">Cancel</button>
-                </div>
-            </form>
-        </div>
-    </div>
+    <!-- Modals will be injected by JavaScript -->
+    <div id="modalsContainer"></div>
 
     <script src="admin-script.js"></script>
 </body>
