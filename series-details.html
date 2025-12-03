@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Series Details - CineHub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(10, 14, 39, 0.95);
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #00d4ff, #b537f2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .back-btn {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, #00d4ff, #b537f2);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.5);
+        }
+
+        .series-details {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .series-hero {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .series-poster {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+        }
+
+        .series-info h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #00d4ff, #b537f2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .series-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 50px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .series-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #94a3b8;
+            margin-bottom: 2rem;
+        }
+
+        .series-details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .detail-card {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+        }
+
+        .detail-card h3 {
+            color: #00d4ff;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .detail-card p {
+            font-size: 1.1rem;
+            color: #ffffff;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .btn-play {
+            padding: 1.2rem 3rem;
+            background: linear-gradient(135deg, #00d4ff, #b537f2);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .btn-play:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.5);
+        }
+
+        .btn-secondary {
+            padding: 1.2rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 50px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .series-hero {
+                grid-template-columns: 1fr;
+            }
+
+            .series-info h1 {
+                font-size: 2rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">🎬 CineHub</div>
+            <button class="back-btn" onclick="window.close()">← Back</button>
+        </div>
+    </div>
+
+    <div class="series-details" id="seriesDetails">
+        <div class="series-hero">
+            <img src="" alt="Series Poster" class="series-poster" id="seriesPoster">
+            <div class="series-info">
+                <h1 id="seriesTitle">Loading...</h1>
+                <div class="series-meta">
+                    <div class="meta-item">
+                        <span>⭐</span>
+                        <span id="seriesRating">-</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>📺</span>
+                        <span id="seriesSeasons">-</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>🎭</span>
+                        <span id="seriesGenre">-</span>
+                    </div>
+                </div>
+                <p class="series-description" id="seriesDescription">Loading description...</p>
+                
+                <div class="series-details-grid">
+                    <div class="detail-card">
+                        <h3>CAST</h3>
+                        <p id="seriesCast">-</p>
+                    </div>
+                    <div class="detail-card">
+                        <h3>EPISODES</h3>
+                        <p id="seriesEpisodes">-</p>
+                    </div>
+                    <div class="detail-card">
+                        <h3>STATUS</h3>
+                        <p id="seriesStatus">-</p>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-play" onclick="playSeries()">
+                        <span>▶️</span>
+                        <span>Watch Now</span>
+                    </button>
+                    <button class="btn-secondary" onclick="addToWatchlist()">
+                        ➕ Add to Watchlist
+                    </button>
+                    <button class="btn-secondary" onclick="shareSeries()">
+                        🔗 Share
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const seriesData = localStorage.getItem('selectedSeries');
+            if (seriesData) {
+                const series = JSON.parse(seriesData);
+                displaySeriesDetails(series);
+            } else {
+                alert('No series data found!');
+                window.close();
+            }
+        };
+
+        function displaySeriesDetails(series) {
+            document.getElementById('seriesPoster').src = series.imgSrc;
+            document.getElementById('seriesTitle').textContent = series.title;
+            document.getElementById('seriesRating').textContent = series.rating;
+            document.getElementById('seriesSeasons').textContent = series.seasons + ' Season' + (series.seasons > 1 ? 's' : '');
+            document.getElementById('seriesGenre').textContent = series.genre;
+            document.getElementById('seriesDescription').textContent = series.description || 'No description available.';
+            document.getElementById('seriesCast').textContent = series.cast || 'Not available';
+            document.getElementById('seriesEpisodes').textContent = series.episodes || 'Not available';
+            document.getElementById('seriesStatus').textContent = series.status.toUpperCase();
+            
+            document.title = series.title + ' - CineHub';
+        }
+
+        function playSeries() {
+            const seriesData = localStorage.getItem('selectedSeries');
+            if (seriesData) {
+                const series = JSON.parse(seriesData);
+                localStorage.setItem('playingSeries', JSON.stringify(series));
+                window.open('movie-player.html', '_blank');
+            }
+        }
+
+        function addToWatchlist() {
+            alert('✅ Added to your watchlist!');
+        }
+
+        function shareSeries() {
+            const seriesData = localStorage.getItem('selectedSeries');
+            if (seriesData) {
+                const series = JSON.parse(seriesData);
+                if (navigator.share) {
+                    navigator.share({
+                        title: series.title,
+                        text: 'Watch ' + series.title + ' on CineHub!',
+                        url: window.location.href
+                    });
+                } else {
+                    alert('🔗 Share link copied to clipboard!');
+                    navigator.clipboard.writeText(window.location.href);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
