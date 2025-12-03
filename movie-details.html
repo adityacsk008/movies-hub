@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details - CineHub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(10, 14, 39, 0.95);
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #00d4ff, #b537f2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .back-btn {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, #00d4ff, #b537f2);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.5);
+        }
+
+        .movie-details {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .movie-hero {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .movie-poster {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+        }
+
+        .movie-info h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #00d4ff, #b537f2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .movie-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 50px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .movie-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #94a3b8;
+            margin-bottom: 2rem;
+        }
+
+        .movie-details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .detail-card {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+        }
+
+        .detail-card h3 {
+            color: #00d4ff;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .detail-card p {
+            font-size: 1.1rem;
+            color: #ffffff;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .btn-play {
+            padding: 1.2rem 3rem;
+            background: linear-gradient(135deg, #00d4ff, #b537f2);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .btn-play:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.5);
+        }
+
+        .btn-secondary {
+            padding: 1.2rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 50px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .movie-hero {
+                grid-template-columns: 1fr;
+            }
+
+            .movie-info h1 {
+                font-size: 2rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">🎬 CineHub</div>
+            <button class="back-btn" onclick="window.close()">← Back</button>
+        </div>
+    </div>
+
+    <div class="movie-details" id="movieDetails">
+        <div class="movie-hero">
+            <img src="" alt="Movie Poster" class="movie-poster" id="moviePoster">
+            <div class="movie-info">
+                <h1 id="movieTitle">Loading...</h1>
+                <div class="movie-meta">
+                    <div class="meta-item">
+                        <span>⭐</span>
+                        <span id="movieRating">-</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>📅</span>
+                        <span id="movieYear">-</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>⏱️</span>
+                        <span id="movieDuration">-</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>🎭</span>
+                        <span id="movieGenre">-</span>
+                    </div>
+                </div>
+                <p class="movie-description" id="movieDescription">Loading description...</p>
+                
+                <div class="movie-details-grid">
+                    <div class="detail-card">
+                        <h3>CAST</h3>
+                        <p id="movieCast">-</p>
+                    </div>
+                    <div class="detail-card">
+                        <h3>DIRECTOR</h3>
+                        <p id="movieDirector">-</p>
+                    </div>
+                    <div class="detail-card">
+                        <h3>STATUS</h3>
+                        <p id="movieStatus">-</p>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-play" onclick="playMovie()">
+                        <span>▶️</span>
+                        <span>Play Now</span>
+                    </button>
+                    <button class="btn-secondary" onclick="addToWatchlist()">
+                        ➕ Add to Watchlist
+                    </button>
+                    <button class="btn-secondary" onclick="shareMovie()">
+                        🔗 Share
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const movieData = localStorage.getItem('selectedMovie');
+            if (movieData) {
+                const movie = JSON.parse(movieData);
+                displayMovieDetails(movie);
+            } else {
+                alert('No movie data found!');
+                window.close();
+            }
+        };
+
+        function displayMovieDetails(movie) {
+            document.getElementById('moviePoster').src = movie.imgSrc;
+            document.getElementById('movieTitle').textContent = movie.title;
+            document.getElementById('movieRating').textContent = movie.rating;
+            document.getElementById('movieYear').textContent = movie.year;
+            document.getElementById('movieDuration').textContent = movie.duration;
+            document.getElementById('movieGenre').textContent = movie.genre;
+            document.getElementById('movieDescription').textContent = movie.description || 'No description available.';
+            document.getElementById('movieCast').textContent = movie.cast || 'Not available';
+            document.getElementById('movieDirector').textContent = movie.director || 'Not available';
+            document.getElementById('movieStatus').textContent = movie.status.toUpperCase();
+            
+            document.title = movie.title + ' - CineHub';
+        }
+
+        function playMovie() {
+            const movieData = localStorage.getItem('selectedMovie');
+            if (movieData) {
+                const movie = JSON.parse(movieData);
+                localStorage.setItem('playingMovie', JSON.stringify(movie));
+                window.open('movie-player.html', '_blank');
+            }
+        }
+
+        function addToWatchlist() {
+            alert('✅ Added to your watchlist!');
+        }
+
+        function shareMovie() {
+            const movieData = localStorage.getItem('selectedMovie');
+            if (movieData) {
+                const movie = JSON.parse(movieData);
+                if (navigator.share) {
+                    navigator.share({
+                        title: movie.title,
+                        text: 'Watch ' + movie.title + ' on CineHub!',
+                        url: window.location.href
+                    });
+                } else {
+                    alert('🔗 Share link copied to clipboard!');
+                    navigator.clipboard.writeText(window.location.href);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
