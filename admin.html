@@ -24,21 +24,21 @@
                 </div>
             </li>
             <li class="nav-item">
+                <div class="nav-link" onclick="showSection('upload')">
+                    <span class="nav-icon">⬆️</span>
+                    <span class="nav-text">Upload Movies</span>
+                </div>
+            </li>
+            <li class="nav-item">
                 <div class="nav-link" onclick="showSection('movies')">
                     <span class="nav-icon">🎬</span>
-                    <span class="nav-text">Movies</span>
+                    <span class="nav-text">Manage Movies</span>
                 </div>
             </li>
             <li class="nav-item">
                 <div class="nav-link" onclick="showSection('webseries')">
                     <span class="nav-icon">📺</span>
                     <span class="nav-text">Web Series</span>
-                </div>
-            </li>
-            <li class="nav-item">
-                <div class="nav-link" onclick="showSection('upload')">
-                    <span class="nav-icon">⬆️</span>
-                    <span class="nav-text">Upload Movie</span>
                 </div>
             </li>
             <li class="nav-item">
@@ -237,9 +237,9 @@
                         <span class="action-icon">🎬</span>
                         <span>Upload Movie</span>
                     </button>
-                    <button class="action-btn purple" onclick="showSection('upload')">
-                        <span class="action-icon">📺</span>
-                        <span>Upload Web Series</span>
+                    <button class="action-btn purple" onclick="showSection('movies')">
+                        <span class="action-icon">📋</span>
+                        <span>Manage Movies</span>
                     </button>
                     <button class="action-btn green" onclick="showSection('subscription')">
                         <span class="action-icon">💳</span>
@@ -253,7 +253,7 @@
             </div>
         </div>
 
-        <!-- Other sections will be loaded from admin-sections.js -->
+        <!-- Other sections will be loaded from admin-script.js -->
         <div id="earningsSection" class="content-section"></div>
         <div id="moviesSection" class="content-section"></div>
         <div id="webseriesSection" class="content-section"></div>
