@@ -8,8 +8,11 @@
 </head>
 <body>
     <!-- Sidebar -->
-    <aside class="sidebar">
-        <div class="logo">🎬 CineHub</div>
+    <aside class="sidebar" id="sidebar">
+        <div class="logo-container">
+            <div class="logo">🎬 CineHub</div>
+            <div class="logo-subtitle">Admin Panel</div>
+        </div>
         <ul class="nav-menu">
             <li class="nav-item">
                 <div class="nav-link active" onclick="showSection('dashboard')">
@@ -18,27 +21,21 @@
                 </div>
             </li>
             <li class="nav-item">
-                <div class="nav-link" onclick="showSection('earnings')">
-                    <span class="nav-icon">💰</span>
-                    <span class="nav-text">Earnings</span>
+                <div class="nav-link" onclick="showSection('movies')">
+                    <span class="nav-icon">🎬</span>
+                    <span class="nav-text">Movies</span>
+                </div>
+            </li>
+            <li class="nav-item">
+                <div class="nav-link" onclick="showSection('series')">
+                    <span class="nav-icon">📺</span>
+                    <span class="nav-text">Series</span>
                 </div>
             </li>
             <li class="nav-item">
                 <div class="nav-link" onclick="showSection('upload')">
                     <span class="nav-icon">⬆️</span>
-                    <span class="nav-text">Upload Movies</span>
-                </div>
-            </li>
-            <li class="nav-item">
-                <div class="nav-link" onclick="showSection('movies')">
-                    <span class="nav-icon">🎬</span>
-                    <span class="nav-text">Manage Movies</span>
-                </div>
-            </li>
-            <li class="nav-item">
-                <div class="nav-link" onclick="showSection('webseries')">
-                    <span class="nav-icon">📺</span>
-                    <span class="nav-text">Web Series</span>
+                    <span class="nav-text">Upload Manager</span>
                 </div>
             </li>
             <li class="nav-item">
@@ -48,31 +45,42 @@
                 </div>
             </li>
             <li class="nav-item">
-                <div class="nav-link" onclick="showSection('subscription')">
-                    <span class="nav-icon">💳</span>
-                    <span class="nav-text">Subscription</span>
-                </div>
-            </li>
-            <li class="nav-item">
                 <div class="nav-link" onclick="showSection('settings')">
                     <span class="nav-icon">⚙️</span>
                     <span class="nav-text">Settings</span>
                 </div>
             </li>
         </ul>
+        <div class="sidebar-footer">
+            <div class="admin-profile-card">
+                <div class="admin-avatar">👤</div>
+                <div class="admin-info">
+                    <div class="admin-name">Admin</div>
+                    <div class="admin-role">Super Admin</div>
+                </div>
+            </div>
+        </div>
     </aside>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" onclick="toggleSidebar()">☰</button>
 
     <!-- Top Bar -->
     <header class="topbar">
-        <div class="search-bar">
-            <span class="search-icon">🔍</span>
-            <input type="text" placeholder="Search anything...">
+        <div class="topbar-left">
+            <h1 class="page-heading" id="pageHeading">Dashboard</h1>
         </div>
-        <div class="topbar-actions">
-            <div class="notification-icon">🔔</div>
-            <div class="admin-profile">
-                <div class="admin-avatar">👤</div>
-                <span>Admin</span>
+        <div class="topbar-right">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search...">
+                <span class="search-icon">🔍</span>
+            </div>
+            <div class="notification-badge">
+                <span class="notification-icon">🔔</span>
+                <span class="badge-count">3</span>
+            </div>
+            <div class="theme-toggle" onclick="toggleTheme()">
+                <span id="themeIcon">🌙</span>
             </div>
         </div>
     </header>
@@ -81,190 +89,94 @@
     <main class="main-content">
         <!-- Dashboard Section -->
         <div id="dashboardSection" class="content-section active">
-            <h1 class="page-title">📊 Dashboard Overview</h1>
-            
-            <!-- Top Stats Cards -->
+            <!-- Stats Grid -->
             <div class="stats-grid">
-                <div class="stat-card glass-effect">
-                    <div class="stat-header">
-                        <div>
-                            <div class="stat-title">Total Movies</div>
-                            <div class="stat-value" id="totalMovies">0</div>
-                            <div class="stat-change positive">↑ 12% from last month</div>
-                        </div>
-                        <div class="stat-icon blue">🎬</div>
+                <div class="stat-card neon-card">
+                    <div class="stat-icon blue">🎬</div>
+                    <div class="stat-info">
+                        <div class="stat-label">Total Movies</div>
+                        <div class="stat-value" id="totalMovies">0</div>
+                        <div class="stat-trend positive">↑ 12% this month</div>
                     </div>
                 </div>
-                <div class="stat-card glass-effect">
-                    <div class="stat-header">
-                        <div>
-                            <div class="stat-title">Total Web Series</div>
-                            <div class="stat-value" id="totalSeries">0</div>
-                            <div class="stat-change positive">↑ 8% from last month</div>
-                        </div>
-                        <div class="stat-icon purple">📺</div>
+                <div class="stat-card neon-card">
+                    <div class="stat-icon purple">📺</div>
+                    <div class="stat-info">
+                        <div class="stat-label">Total Series</div>
+                        <div class="stat-value" id="totalSeries">0</div>
+                        <div class="stat-trend positive">↑ 8% this month</div>
                     </div>
                 </div>
-                <div class="stat-card glass-effect">
-                    <div class="stat-header">
-                        <div>
-                            <div class="stat-title">Total Users</div>
-                            <div class="stat-value" id="totalUsers">0</div>
-                            <div class="stat-change positive">↑ 15% from yesterday</div>
-                        </div>
-                        <div class="stat-icon green">👥</div>
+                <div class="stat-card neon-card">
+                    <div class="stat-icon green">👥</div>
+                    <div class="stat-info">
+                        <div class="stat-label">Active Users</div>
+                        <div class="stat-value" id="activeUsers">0</div>
+                        <div class="stat-trend positive">↑ 15% today</div>
                     </div>
                 </div>
-                <div class="stat-card glass-effect">
-                    <div class="stat-header">
-                        <div>
-                            <div class="stat-title">Daily Earnings</div>
-                            <div class="stat-value">₹2,450</div>
-                            <div class="stat-change positive">↑ ₹450 today</div>
-                        </div>
-                        <div class="stat-icon pink">💰</div>
+                <div class="stat-card neon-card">
+                    <div class="stat-icon pink">📈</div>
+                    <div class="stat-info">
+                        <div class="stat-label">Today's Traffic</div>
+                        <div class="stat-value">2.4K</div>
+                        <div class="stat-trend positive">↑ 23% today</div>
                     </div>
                 </div>
-                <div class="stat-card glass-effect">
-                    <div class="stat-header">
-                        <div>
-                            <div class="stat-title">Monthly Earnings</div>
-                            <div class="stat-value">₹69,500</div>
-                            <div class="stat-change positive">↑ 23% this month</div>
-                        </div>
-                        <div class="stat-icon orange">📈</div>
+                <div class="stat-card neon-card">
+                    <div class="stat-icon orange">💾</div>
+                    <div class="stat-info">
+                        <div class="stat-label">Storage Used</div>
+                        <div class="stat-value">45.2 GB</div>
+                        <div class="stat-trend">of 100 GB</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Analytics Charts -->
-            <div class="charts-grid">
-                <div class="chart-card glass-effect">
-                    <div class="chart-header">
-                        <h3>📈 User Growth</h3>
-                        <select class="chart-filter">
-                            <option>Last 7 Days</option>
-                            <option>Last 30 Days</option>
-                            <option>Last 3 Months</option>
-                        </select>
-                    </div>
-                    <div class="chart-placeholder">
-                        <canvas id="userGrowthChart"></canvas>
-                        <div class="chart-mock">Line Chart: User Growth Trend</div>
-                    </div>
+            <!-- Recent Uploads -->
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">📤 Recent Uploads</h2>
+                    <button class="btn-gradient" onclick="showSection('movies')">View All</button>
                 </div>
-
-                <div class="chart-card glass-effect">
-                    <div class="chart-header">
-                        <h3>🎬 Movies Upload Trend</h3>
-                        <select class="chart-filter">
-                            <option>This Month</option>
-                            <option>Last Month</option>
-                            <option>This Year</option>
-                        </select>
-                    </div>
-                    <div class="chart-placeholder">
-                        <canvas id="moviesUploadChart"></canvas>
-                        <div class="chart-mock">Bar Chart: Movies Upload by Category</div>
-                    </div>
-                </div>
-
-                <div class="chart-card glass-effect full-width">
-                    <div class="chart-header">
-                        <h3>💰 Earnings Overview</h3>
-                        <select class="chart-filter">
-                            <option>Last 6 Months</option>
-                            <option>This Year</option>
-                            <option>All Time</option>
-                        </select>
-                    </div>
-                    <div class="chart-placeholder">
-                        <canvas id="earningsChart"></canvas>
-                        <div class="chart-mock">Area Chart: Monthly Earnings Breakdown</div>
-                    </div>
+                <div class="recent-uploads-grid" id="recentUploads">
+                    <!-- Will be populated by JS -->
                 </div>
             </div>
 
-            <!-- Recent Activity Table -->
-            <div class="table-card glass-effect">
-                <div class="table-header">
-                    <h3>📋 Recent Activity</h3>
-                    <button class="btn btn-secondary">View All</button>
+            <!-- Quick Stats Chart -->
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">📊 Analytics Overview</h2>
                 </div>
-                <div class="table-responsive">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Movie Name</th>
-                                <th>Uploaded By</th>
-                                <th>Date</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="recentActivityTable">
-                            <tr>
-                                <td><strong>Kalki 2898 AD</strong></td>
-                                <td>Admin</td>
-                                <td>Dec 01, 2024</td>
-                                <td><span class="badge badge-success">Published</span></td>
-                                <td><button class="btn-icon">👁️</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>12th Fail</strong></td>
-                                <td>Admin</td>
-                                <td>Nov 30, 2024</td>
-                                <td><span class="badge badge-success">Published</span></td>
-                                <td><button class="btn-icon">👁️</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Housefull 5</strong></td>
-                                <td>Admin</td>
-                                <td>Nov 29, 2024</td>
-                                <td><span class="badge badge-warning">Draft</span></td>
-                                <td><button class="btn-icon">👁️</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Quick Actions -->
-            <div class="quick-actions">
-                <h3>⚡ Quick Actions</h3>
-                <div class="action-buttons">
-                    <button class="action-btn blue" onclick="showSection('upload')">
-                        <span class="action-icon">🎬</span>
-                        <span>Upload Movie</span>
-                    </button>
-                    <button class="action-btn purple" onclick="showSection('movies')">
-                        <span class="action-icon">📋</span>
-                        <span>Manage Movies</span>
-                    </button>
-                    <button class="action-btn green" onclick="showSection('subscription')">
-                        <span class="action-icon">💳</span>
-                        <span>Create Plan</span>
-                    </button>
-                    <button class="action-btn pink" onclick="showSection('users')">
-                        <span class="action-icon">👥</span>
-                        <span>Manage Users</span>
-                    </button>
+                <div class="chart-container neon-card">
+                    <div class="chart-placeholder">
+                        <div class="chart-icon">📈</div>
+                        <p>Analytics Chart Placeholder</p>
+                        <small>User engagement and content performance</small>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Other sections will be loaded from admin-script.js -->
-        <div id="earningsSection" class="content-section"></div>
+        <!-- Movies Section -->
         <div id="moviesSection" class="content-section"></div>
-        <div id="webseriesSection" class="content-section"></div>
+
+        <!-- Series Section -->
+        <div id="seriesSection" class="content-section"></div>
+
+        <!-- Upload Manager Section -->
         <div id="uploadSection" class="content-section"></div>
+
+        <!-- Users Section -->
         <div id="usersSection" class="content-section"></div>
-        <div id="subscriptionSection" class="content-section"></div>
+
+        <!-- Settings Section -->
         <div id="settingsSection" class="content-section"></div>
     </main>
 
-    <!-- Modals will be injected by JavaScript -->
-    <div id="modalsContainer"></div>
+    <!-- Modals Container -->
+    <div id="modalContainer"></div>
 
     <script src="admin-script.js"></script>
 </body>
