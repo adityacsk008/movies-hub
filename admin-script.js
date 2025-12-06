@@ -14,21 +14,21 @@ window.onload = function() {
 
 // Initial Data
 let moviesData = [
-    { id: 1, title: "RRR", genre: "Action, Drama", imgSrc: "https://iili.io/F2ziUOJ.jpg", year: "2022", rating: "8.8", status: "published", duration: "187 min", uploadedBy: "Admin", uploadDate: "2024-11-15", description: "A fearless revolutionary and an officer in the British force, who once shared a deep bond, decide to join forces and chart out an inspirational path of freedom against the despotic rulers.", cast: "N.T. Rama Rao Jr., Ram Charan", director: "S.S. Rajamouli", videoUrl: "https://example.com/rrr.mp4" },
-    { id: 2, title: "Kalki 2898 AD", genre: "Action, Drama", imgSrc: "https://iili.io/KXXLZ7V.jpg", year: "2024", rating: "8.5", status: "published", duration: "180 min", uploadedBy: "Admin", uploadDate: "2024-12-01", description: "A modern-day avatar of Vishnu, a Hindu god, who is believed to have descended to Earth to protect the world from evil forces.", cast: "Prabhas, Deepika Padukone", director: "Nag Ashwin", videoUrl: "https://example.com/kalki.mp4" },
-    { id: 3, title: "Tiger Nageswara Rao", genre: "Dark Comedy", imgSrc: "https://iili.io/K8M02ef.jpg", year: "2023", rating: "7.8", status: "published", duration: "175 min", uploadedBy: "Admin", uploadDate: "2024-11-20", description: "Based on the life of the notorious thief Tiger Nageswara Rao who was active in South India during the 1970s.", cast: "Ravi Teja, Anupam Kher", director: "Vamsee", videoUrl: "https://example.com/tiger.mp4" },
-    { id: 4, title: "Shershaah", genre: "Biographical War", imgSrc: "https://iili.io/F2zi8Hg.jpg", year: "2021", rating: "8.9", status: "published", duration: "135 min", uploadedBy: "Admin", uploadDate: "2024-11-10", description: "The life of Captain Vikram Batra, who was an officer of the Indian Army, posthumously awarded with the Param Vir Chakra, India's highest award for valour, for his actions during the 1999 Kargil War.", cast: "Sidharth Malhotra, Kiara Advani", director: "Vishnuvardhan", videoUrl: "https://example.com/shershaah.mp4" },
-    { id: 5, title: "12th Fail", genre: "Biographical Drama", imgSrc: "https://iili.io/F2ziQUX.jpg", year: "2023", rating: "9.1", status: "published", duration: "147 min", uploadedBy: "Admin", uploadDate: "2024-11-30", description: "The real-life story of IPS officer Manoj Kumar Sharma who fearlessly embraced the idea of restarting his academic journey and reclaiming his destiny at a place where millions of students attempt the world's toughest competitive exam: UPSC.", cast: "Vikrant Massey, Medha Shankar", director: "Vidhu Vinod Chopra", videoUrl: "https://example.com/12thfail.mp4" },
+    { id: 1, title: "RRR", genre: "Action, Drama", imgSrc: "https://iili.io/F2ziUOJ.jpg", year: "2022", rating: "8.8", status: "published", duration: "187 min", uploadedBy: "Admin", uploadDate: "2024-11-15", description: "A fearless revolutionary and an officer in the British force, who once shared a deep bond, decide to join forces and chart out an inspirational path of freedom against the despotic rulers.", cast: "N.T. Rama Rao Jr., Ram Charan", director: "S.S. Rajamouli", videoUrl: "https://www.youtube.com/embed/GY4CDmUv1RI" },
+    { id: 2, title: "Kalki 2898 AD", genre: "Action, Drama", imgSrc: "https://iili.io/KXXLZ7V.jpg", year: "2024", rating: "8.5", status: "published", duration: "180 min", uploadedBy: "Admin", uploadDate: "2024-12-01", description: "A modern-day avatar of Vishnu, a Hindu god, who is believed to have descended to Earth to protect the world from evil forces.", cast: "Prabhas, Deepika Padukone", director: "Nag Ashwin", videoUrl: "https://www.youtube.com/embed/example2" },
+    { id: 3, title: "Tiger Nageswara Rao", genre: "Dark Comedy", imgSrc: "https://iili.io/K8M02ef.jpg", year: "2023", rating: "7.8", status: "published", duration: "175 min", uploadedBy: "Admin", uploadDate: "2024-11-20", description: "Based on the life of the notorious thief Tiger Nageswara Rao who was active in South India during the 1970s.", cast: "Ravi Teja, Anupam Kher", director: "Vamsee", videoUrl: "https://www.youtube.com/embed/example3" },
+    { id: 4, title: "Shershaah", genre: "Biographical War", imgSrc: "https://iili.io/F2zi8Hg.jpg", year: "2021", rating: "8.9", status: "published", duration: "135 min", uploadedBy: "Admin", uploadDate: "2024-11-10", description: "The life of Captain Vikram Batra, who was an officer of the Indian Army, posthumously awarded with the Param Vir Chakra, India's highest award for valour, for his actions during the 1999 Kargil War.", cast: "Sidharth Malhotra, Kiara Advani", director: "Vishnuvardhan", videoUrl: "https://www.youtube.com/embed/example4" },
+    { id: 5, title: "12th Fail", genre: "Biographical Drama", imgSrc: "https://iili.io/F2ziQUX.jpg", year: "2023", rating: "9.1", status: "published", duration: "147 min", uploadedBy: "Admin", uploadDate: "2024-11-30", description: "The real-life story of IPS officer Manoj Kumar Sharma who fearlessly embraced the idea of restarting his academic journey and reclaiming his destiny at a place where millions of students attempt the world's toughest competitive exam: UPSC.", cast: "Vikrant Massey, Medha Shankar", director: "Vidhu Vinod Chopra", videoUrl: "https://www.youtube.com/embed/example5" },
     { id: 6, title: "Housefull 5", genre: "Comedy", imgSrc: "https://iili.io/F2I2FNp.jpg", year: "2024", rating: "N/A", status: "draft", duration: "150 min", uploadedBy: "Admin", uploadDate: "2024-11-29", description: "The fifth installment of the Housefull franchise. Coming soon!", cast: "Akshay Kumar, Riteish Deshmukh", director: "Tarun Mansukhani", videoUrl: "" },
-    { id: 7, title: "Titanic", genre: "Romance, Drama", imgSrc: "https://iili.io/F2InRMQ.jpg", year: "1997", rating: "7.9", status: "published", duration: "195 min", uploadedBy: "Admin", uploadDate: "2024-11-05", description: "A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic.", cast: "Leonardo DiCaprio, Kate Winslet", director: "James Cameron", videoUrl: "https://example.com/titanic.mp4" }
+    { id: 7, title: "Titanic", genre: "Romance, Drama", imgSrc: "https://iili.io/F2InRMQ.jpg", year: "1997", rating: "7.9", status: "published", duration: "195 min", uploadedBy: "Admin", uploadDate: "2024-11-05", description: "A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic.", cast: "Leonardo DiCaprio, Kate Winslet", director: "James Cameron", videoUrl: "https://www.youtube.com/embed/example7" }
 ];
 
 let seriesData = [
-    { id: 1, title: "Mirzapur", genre: "Crime Thriller", imgSrc: "https://iili.io/F27Hhgt.jpg", seasons: "3", episodes: "30", rating: "8.5", status: "published", uploadedBy: "Admin", uploadDate: "2024-11-18", description: "A shocking incident at a wedding procession ignites a series of events entangling the lives of two families in the lawless city of Mirzapur.", cast: "Pankaj Tripathi, Ali Fazal", videoUrl: "https://example.com/mirzapur.mp4" },
-    { id: 2, title: "The Family Man", genre: "Spy Thriller", imgSrc: "https://iili.io/F27HyrP.jpg", seasons: "2", episodes: "19", rating: "8.7", status: "published", uploadedBy: "Admin", uploadDate: "2024-11-22", description: "A middle-class man who works for a special cell of the National Investigation Agency while trying to protect his family from the impact of his secretive, high-pressure, and low paying job.", cast: "Manoj Bajpayee, Samantha", videoUrl: "https://example.com/familyman.mp4" },
-    { id: 3, title: "Sacred Games", genre: "Crime Thriller", imgSrc: "https://iili.io/F27HN7n.jpg", seasons: "2", episodes: "16", rating: "8.6", status: "published", uploadedBy: "Admin", uploadDate: "2024-11-12", description: "A link in their pasts leads an honest cop to a fugitive gang boss, whose cryptic warning spurs the officer on a quest to save Mumbai from cataclysm.", cast: "Saif Ali Khan, Nawazuddin Siddiqui", videoUrl: "https://example.com/sacredgames.mp4" },
-    { id: 4, title: "Scam 1992", genre: "Biographical Crime", imgSrc: "https://iili.io/F27Hr1S.jpg", seasons: "1", episodes: "10", rating: "9.5", status: "published", uploadedBy: "Admin", uploadDate: "2024-11-08", description: "Set in 1980's & 90's Bombay, Scam 1992 follows the life of Harshad Mehta - a stockbroker who single-handedly took the stock market to dizzying heights & his catastrophic downfall.", cast: "Pratik Gandhi, Shreya Dhanwanthary", videoUrl: "https://example.com/scam1992.mp4" },
-    { id: 5, title: "Panchayat", genre: "Comedy Drama", imgSrc: "https://iili.io/F27HgB2.jpg", seasons: "3", episodes: "24", rating: "8.9", status: "published", uploadedBy: "Admin", uploadDate: "2024-11-28", description: "A comedy-drama, which captures the journey of an engineering graduate Abhishek, who for lack of a better job option joins as secretary of a Panchayat office in a remote village of Uttar Pradesh.", cast: "Jitendra Kumar, Raghubir Yadav", videoUrl: "https://example.com/panchayat.mp4" }
+    { id: 1, title: "Mirzapur", genre: "Crime Thriller", imgSrc: "https://iili.io/F27Hhgt.jpg", seasons: "3", episodes: "30", rating: "8.5", status: "published", uploadedBy: "Admin", uploadDate: "2024-11-18", description: "A shocking incident at a wedding procession ignites a series of events entangling the lives of two families in the lawless city of Mirzapur.", cast: "Pankaj Tripathi, Ali Fazal", videoUrl: "https://www.youtube.com/embed/series1" },
+    { id: 2, title: "The Family Man", genre: "Spy Thriller", imgSrc: "https://iili.io/F27HyrP.jpg", seasons: "2", episodes: "19", rating: "8.7", status: "published", uploadedBy: "Admin", uploadDate: "2024-11-22", description: "A middle-class man who works for a special cell of the National Investigation Agency while trying to protect his family from the impact of his secretive, high-pressure, and low paying job.", cast: "Manoj Bajpayee, Samantha", videoUrl: "https://www.youtube.com/embed/series2" },
+    { id: 3, title: "Sacred Games", genre: "Crime Thriller", imgSrc: "https://iili.io/F27HN7n.jpg", seasons: "2", episodes: "16", rating: "8.6", status: "published", uploadedBy: "Admin", uploadDate: "2024-11-12", description: "A link in their pasts leads an honest cop to a fugitive gang boss, whose cryptic warning spurs the officer on a quest to save Mumbai from cataclysm.", cast: "Saif Ali Khan, Nawazuddin Siddiqui", videoUrl: "https://www.youtube.com/embed/series3" },
+    { id: 4, title: "Scam 1992", genre: "Biographical Crime", imgSrc: "https://iili.io/F27Hr1S.jpg", seasons: "1", episodes: "10", rating: "9.5", status: "published", uploadedBy: "Admin", uploadDate: "2024-11-08", description: "Set in 1980's & 90's Bombay, Scam 1992 follows the life of Harshad Mehta - a stockbroker who single-handedly took the stock market to dizzying heights & his catastrophic downfall.", cast: "Pratik Gandhi, Shreya Dhanwanthary", videoUrl: "https://www.youtube.com/embed/series4" },
+    { id: 5, title: "Panchayat", genre: "Comedy Drama", imgSrc: "https://iili.io/F27HgB2.jpg", seasons: "3", episodes: "24", rating: "8.9", status: "published", uploadedBy: "Admin", uploadDate: "2024-11-28", description: "A comedy-drama, which captures the journey of an engineering graduate Abhishek, who for lack of a better job option joins as secretary of a Panchayat office in a remote village of Uttar Pradesh.", cast: "Jitendra Kumar, Raghubir Yadav", videoUrl: "https://www.youtube.com/embed/series5" }
 ];
 
 let usersData = [
@@ -282,13 +282,43 @@ function exportPDF() {
     alert('📄 Exporting transactions to PDF...');
 }
 
-// SECTION 3: MOVIES
+// SECTION 3: MOVIES (Manage Uploaded Movies)
 function loadMoviesSection() {
     const section = document.getElementById('moviesSection');
     if (!section) return;
     
     section.innerHTML = `
-        <h1 class="page-title">🎬 Movies Management</h1>
+        <h1 class="page-title">🎬 Uploaded Movies Management</h1>
+        
+        <div class="stats-grid" style="margin-bottom: 2rem;">
+            <div class="stat-card glass-effect">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-title">Total Movies</div>
+                        <div class="stat-value">${moviesData.length}</div>
+                    </div>
+                    <div class="stat-icon blue">🎬</div>
+                </div>
+            </div>
+            <div class="stat-card glass-effect">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-title">Published</div>
+                        <div class="stat-value">${moviesData.filter(m => m.status === 'published').length}</div>
+                    </div>
+                    <div class="stat-icon green">✅</div>
+                </div>
+            </div>
+            <div class="stat-card glass-effect">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-title">Drafts</div>
+                        <div class="stat-value">${moviesData.filter(m => m.status === 'draft').length}</div>
+                    </div>
+                    <div class="stat-icon orange">📝</div>
+                </div>
+            </div>
+        </div>
         
         <!-- Search & Filters -->
         <div class="filters-bar glass-effect">
@@ -301,52 +331,17 @@ function loadMoviesSection() {
                 <option value="Thriller">Thriller</option>
                 <option value="Romance">Romance</option>
             </select>
-            <select class="filter-input" id="yearFilter" onchange="filterMovies()">
-                <option value="">All Years</option>
-                <option value="2024">2024</option>
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
-                <option value="2021">2021</option>
-            </select>
             <select class="filter-input" id="statusFilter" onchange="filterMovies()">
                 <option value="">All Status</option>
                 <option value="published">Published</option>
                 <option value="draft">Draft</option>
             </select>
-            <button class="btn btn-primary" onclick="openAddMovieModal()">➕ Add Movie</button>
         </div>
 
         <!-- Movies Grid -->
         <div class="movies-grid" id="moviesGrid"></div>
-
-        <!-- Movies Table View -->
-        <div class="table-card glass-effect" style="margin-top: 2rem;">
-            <div class="table-header">
-                <h3>📋 Movies List</h3>
-                <button class="btn btn-secondary" onclick="toggleView()">🔄 Toggle View</button>
-            </div>
-            <div class="table-responsive">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Poster</th>
-                            <th>Title</th>
-                            <th>Category</th>
-                            <th>Duration</th>
-                            <th>Year</th>
-                            <th>Rating</th>
-                            <th>Uploaded By</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="moviesTableBody"></tbody>
-                </table>
-            </div>
-        </div>
     `;
     renderMoviesGrid();
-    renderMoviesTable();
 }
 
 function renderMoviesGrid() {
@@ -365,10 +360,15 @@ function renderMoviesGrid() {
                 <div class="movie-meta">
                     <span>⭐ ${movie.rating}</span>
                     <span>${movie.year}</span>
+                    <span>${movie.duration}</span>
+                </div>
+                <div class="movie-meta">
+                    <span class="badge ${movie.status === 'published' ? 'badge-success' : 'badge-warning'}">${movie.status.toUpperCase()}</span>
                 </div>
                 <div class="movie-actions">
                     <button class="btn-icon" onclick="viewMovieDetails(${movie.id})" title="View">👁️</button>
-                    <button class="btn-icon" onclick="editMovie(${index})" title="Edit">✏️</button>
+                    <button class="btn-icon" onclick="editMovieInline(${index})" title="Edit">✏️</button>
+                    <button class="btn-icon" onclick="toggleMovieStatus(${index})" title="Toggle Status">🔄</button>
                     <button class="btn-icon" onclick="deleteMovie(${index})" title="Delete">🗑️</button>
                 </div>
             </div>
@@ -377,72 +377,51 @@ function renderMoviesGrid() {
     });
 }
 
-function renderMoviesTable() {
-    const tbody = document.getElementById('moviesTableBody');
-    if (!tbody) return;
-    tbody.innerHTML = '';
-    
-    moviesData.forEach((movie, index) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td><img src="${movie.imgSrc}" class="table-thumb" onerror="this.src='https://via.placeholder.com/60x90?text=No+Image'"></td>
-            <td><strong>${movie.title}</strong></td>
-            <td>${movie.genre}</td>
-            <td>${movie.duration}</td>
-            <td>${movie.year}</td>
-            <td>⭐ ${movie.rating}</td>
-            <td>${movie.uploadedBy}</td>
-            <td><span class="badge ${movie.status === 'published' ? 'badge-success' : 'badge-warning'}">${movie.status.toUpperCase()}</span></td>
-            <td>
-                <div style="display: flex; gap: 0.5rem;">
-                    <button class="btn-icon" onclick="viewMovieDetails(${movie.id})">👁️</button>
-                    <button class="btn-icon" onclick="editMovie(${index})">✏️</button>
-                    <button class="btn-icon" onclick="deleteMovie(${index})">🗑️</button>
-                </div>
-            </td>
-        `;
-        tbody.appendChild(row);
-    });
-}
-
 function viewMovieDetails(movieId) {
     const movie = moviesData.find(m => m.id === movieId);
     if (movie) {
-        // Save to localStorage for details page
         localStorage.setItem('selectedMovie', JSON.stringify(movie));
         window.open('movie-details.html', '_blank');
     }
 }
 
+function editMovieInline(index) {
+    const movie = moviesData[index];
+    
+    // Populate upload form with movie data
+    showSection('upload');
+    
+    setTimeout(() => {
+        document.getElementById('movieTitle').value = movie.title;
+        document.getElementById('movieYear').value = movie.year;
+        document.getElementById('movieGenre').value = movie.genre;
+        document.getElementById('movieDuration').value = movie.duration;
+        document.getElementById('movieRating').value = movie.rating;
+        document.getElementById('movieCast').value = movie.cast || '';
+        document.getElementById('movieDescription').value = movie.description || '';
+        document.getElementById('movieDirector').value = movie.director || '';
+        document.getElementById('moviePoster').value = movie.imgSrc;
+        document.getElementById('movieVideo').value = movie.videoUrl || '';
+        document.getElementById('movieStatus').value = movie.status;
+        document.getElementById('editingMovieId').value = index;
+    }, 100);
+}
+
+function toggleMovieStatus(index) {
+    moviesData[index].status = moviesData[index].status === 'published' ? 'draft' : 'published';
+    saveData();
+    renderMoviesGrid();
+    updateStats();
+    alert(`✅ Movie status changed to ${moviesData[index].status.toUpperCase()}`);
+}
+
 function filterMovies() {
     const search = document.getElementById('movieSearch')?.value.toLowerCase() || '';
     const genre = document.getElementById('genreFilter')?.value || '';
-    const year = document.getElementById('yearFilter')?.value || '';
     const status = document.getElementById('statusFilter')?.value || '';
     
     // Filter logic here
     renderMoviesGrid();
-    renderMoviesTable();
-}
-
-function toggleView() {
-    const grid = document.getElementById('moviesGrid');
-    const table = document.querySelector('.table-card');
-    if (grid.style.display === 'none') {
-        grid.style.display = 'grid';
-        table.style.display = 'none';
-    } else {
-        grid.style.display = 'none';
-        table.style.display = 'block';
-    }
-}
-
-function openAddMovieModal() {
-    alert('🎬 Add Movie Modal - Feature coming soon! Use the Upload section to add movies.');
-}
-
-function editMovie(index) {
-    alert(`✏️ Edit Movie: ${moviesData[index].title}\n\nFeature coming soon!`);
 }
 
 function deleteMovie(index) {
@@ -450,8 +429,8 @@ function deleteMovie(index) {
         moviesData.splice(index, 1);
         saveData();
         renderMoviesGrid();
-        renderMoviesTable();
         updateStats();
+        loadMoviesSection();
         alert('✅ Movie deleted successfully!');
     }
 }
@@ -475,17 +454,10 @@ function loadWebSeriesSection() {
                 <option>Comedy</option>
             </select>
             <select class="filter-input">
-                <option>All Years</option>
-                <option>2024</option>
-                <option>2023</option>
-                <option>2022</option>
-            </select>
-            <select class="filter-input">
                 <option>All Status</option>
                 <option>Published</option>
                 <option>Draft</option>
             </select>
-            <button class="btn btn-primary" onclick="openAddSeriesModal()">➕ Add Series</button>
         </div>
 
         <!-- Series Grid -->
@@ -531,10 +503,6 @@ function viewSeriesDetails(seriesId) {
     }
 }
 
-function openAddSeriesModal() {
-    alert('📺 Add Series Modal - Feature coming soon!');
-}
-
 function editSeries(index) {
     alert(`✏️ Edit Series: ${seriesData[index].title}\n\nFeature coming soon!`);
 }
@@ -549,16 +517,18 @@ function deleteSeries(index) {
     }
 }
 
-// SECTION 5: UPLOAD MOVIE
+// SECTION 5: UPLOAD MOVIE (Complete New Section)
 function loadUploadSection() {
     const section = document.getElementById('uploadSection');
     if (!section) return;
     
     section.innerHTML = `
-        <h1 class="page-title">⬆️ Upload Movie</h1>
+        <h1 class="page-title">⬆️ Upload New Movie</h1>
         
         <div class="upload-container glass-effect">
             <form id="uploadMovieForm" class="upload-form" onsubmit="handleMovieUpload(event)">
+                <input type="hidden" id="editingMovieId" value="">
+                
                 <!-- Movie Information -->
                 <div class="form-section">
                     <h3>📝 Movie Information</h3>
@@ -569,7 +539,7 @@ function loadUploadSection() {
                         </div>
                         <div class="form-group">
                             <label>Release Year *</label>
-                            <input type="number" id="movieYear" required placeholder="2024">
+                            <input type="number" id="movieYear" required placeholder="2024" min="1900" max="2030">
                         </div>
                         <div class="form-group">
                             <label>Genre/Category *</label>
@@ -581,11 +551,11 @@ function loadUploadSection() {
                         </div>
                         <div class="form-group">
                             <label>IMDb Rating *</label>
-                            <input type="number" id="movieRating" step="0.1" required placeholder="8.5">
+                            <input type="number" id="movieRating" step="0.1" required placeholder="8.5" min="0" max="10">
                         </div>
                         <div class="form-group">
-                            <label>Cast</label>
-                            <input type="text" id="movieCast" placeholder="Actor 1, Actor 2">
+                            <label>Cast *</label>
+                            <input type="text" id="movieCast" required placeholder="Actor 1, Actor 2">
                         </div>
                     </div>
                     <div class="form-group">
@@ -593,8 +563,8 @@ function loadUploadSection() {
                         <textarea id="movieDescription" rows="4" required placeholder="Enter movie description..."></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Director</label>
-                        <input type="text" id="movieDirector" placeholder="Director name">
+                        <label>Director *</label>
+                        <input type="text" id="movieDirector" required placeholder="Director name">
                     </div>
                 </div>
 
@@ -603,18 +573,34 @@ function loadUploadSection() {
                     <h3>🎬 Media Upload</h3>
                     <div class="form-group">
                         <label>Poster Image URL *</label>
-                        <input type="url" id="moviePoster" required placeholder="https://...">
+                        <input type="url" id="moviePoster" required placeholder="https://example.com/poster.jpg">
+                        <small style="color: #94a3b8;">Enter direct image URL (e.g., from imgur, iili.io, etc.)</small>
                     </div>
                     <div class="form-group">
                         <label>Video URL *</label>
-                        <input type="url" id="movieVideo" required placeholder="https://...">
+                        <input type="url" id="movieVideo" required placeholder="https://www.youtube.com/embed/VIDEO_ID or direct video link">
+                        <small style="color: #94a3b8;">YouTube embed link or direct video URL</small>
+                    </div>
+                </div>
+
+                <!-- Status Selection -->
+                <div class="form-section">
+                    <h3>📊 Publishing Status</h3>
+                    <div class="form-group">
+                        <label>Status *</label>
+                        <select id="movieStatus" required>
+                            <option value="published">Published (Show on main website)</option>
+                            <option value="draft">Draft (Hide from main website)</option>
+                        </select>
                     </div>
                 </div>
 
                 <!-- Publish Options -->
                 <div class="form-actions">
-                    <button type="button" class="btn btn-secondary" onclick="saveDraft()">💾 Save as Draft</button>
-                    <button type="submit" class="btn btn-primary glow-btn">🚀 Publish Now</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()">🔄 Reset Form</button>
+                    <button type="submit" class="btn btn-primary glow-btn">
+                        <span id="submitBtnText">🚀 Upload Movie</span>
+                    </button>
                 </div>
             </form>
         </div>
@@ -624,14 +610,15 @@ function loadUploadSection() {
 function handleMovieUpload(event) {
     event.preventDefault();
     
-    const newMovie = {
-        id: moviesData.length + 1,
+    const editingId = document.getElementById('editingMovieId').value;
+    
+    const movieData = {
         title: document.getElementById('movieTitle').value,
         genre: document.getElementById('movieGenre').value,
         imgSrc: document.getElementById('moviePoster').value,
         year: document.getElementById('movieYear').value,
         rating: document.getElementById('movieRating').value,
-        status: 'published',
+        status: document.getElementById('movieStatus').value,
         duration: document.getElementById('movieDuration').value,
         uploadedBy: 'Admin',
         uploadDate: new Date().toISOString().split('T')[0],
@@ -641,19 +628,31 @@ function handleMovieUpload(event) {
         videoUrl: document.getElementById('movieVideo').value
     };
     
-    moviesData.push(newMovie);
+    if (editingId !== '') {
+        // Update existing movie
+        const index = parseInt(editingId);
+        moviesData[index] = { ...moviesData[index], ...movieData };
+        alert('✅ Movie updated successfully!');
+    } else {
+        // Add new movie
+        movieData.id = moviesData.length > 0 ? Math.max(...moviesData.map(m => m.id)) + 1 : 1;
+        moviesData.push(movieData);
+        alert('✅ Movie uploaded successfully!');
+    }
+    
     saveData();
     updateStats();
-    
-    alert('✅ Movie published successfully!');
-    document.getElementById('uploadMovieForm').reset();
+    resetForm();
     showSection('movies');
 }
 
-function saveDraft() {
-    alert('💾 Saved as draft!');
+function resetForm() {
+    document.getElementById('uploadMovieForm').reset();
+    document.getElementById('editingMovieId').value = '';
+    document.getElementById('submitBtnText').textContent = '🚀 Upload Movie';
 }
 
+// Continue with remaining sections...
 // SECTION 6: USERS
 function loadUsersSection() {
     const section = document.getElementById('usersSection');
@@ -706,7 +705,6 @@ function loadUsersSection() {
         <div class="table-card glass-effect">
             <div class="table-header">
                 <h3>📋 All Users</h3>
-                <button class="btn btn-primary" onclick="openAddUserModal()">➕ Add User</button>
             </div>
             
             <!-- Filters -->
@@ -772,10 +770,6 @@ function renderUsersTable() {
         `;
         tbody.appendChild(row);
     });
-}
-
-function openAddUserModal() {
-    alert('➕ Add User - Feature coming soon!');
 }
 
 function viewUser(index) {
@@ -851,8 +845,6 @@ function loadSubscriptionSection() {
 
         <!-- Subscription Plans Grid -->
         <div class="plans-grid" id="plansGrid"></div>
-        
-        <button class="btn btn-primary" onclick="openAddPlanModal()" style="margin-top: 2rem;">➕ Add New Plan</button>
     `;
     renderPlansGrid();
 }
@@ -887,10 +879,6 @@ function renderPlansGrid() {
         `;
         grid.appendChild(card);
     });
-}
-
-function openAddPlanModal() {
-    alert('➕ Add Plan - Feature coming soon!');
 }
 
 function editPlan(index) {
